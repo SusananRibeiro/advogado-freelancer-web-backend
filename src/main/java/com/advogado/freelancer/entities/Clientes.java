@@ -10,15 +10,15 @@ import java.util.Date;
 @Entity(name = "clientes")
 @SQLDelete(sql = "UPDATE clientes SET deleted_at = now() WHERE id=?")
 @Where(clause = "deleted_at is null")
-public class Cliente {
+public class Clientes {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(name = "nome_completo", nullable = false)
     private String nomeCompleto;
-    @Column
+    @Column(name = "cpf_ou_cnpj", nullable = false)
     private String cpfOuCnpj;
-    @Column
+    @Column(name = "data_nascimento", nullable = false)
     private Date dataNascimento;
     @Column
     private String rua;
@@ -45,5 +45,6 @@ public class Cliente {
 
     // Não precisa gerar Gets e Sets, pois o "@Data" vai fazer isso
 
+   // rua, numero, bairro, uf, cep, pais, telefone, email, complemento, status
 
 }

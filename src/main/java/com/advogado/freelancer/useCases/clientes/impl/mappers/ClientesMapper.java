@@ -1,10 +1,10 @@
 package com.advogado.freelancer.useCases.clientes.impl.mappers;
-import com.advogado.freelancer.entities.Cliente;
+import com.advogado.freelancer.entities.Clientes;
 import com.advogado.freelancer.useCases.clientes.domanis.ClientesRequestDom;
 import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 
 public class ClientesMapper {
-    public static ClientesResponseDom clientesToClientesResponseDom(Cliente clientes){
+    public static ClientesResponseDom clientesToClientesResponseDom(Clientes clientes){
         ClientesResponseDom out = new ClientesResponseDom();
         out.setId(clientes.getId());
         out.setNomeCompleto(clientes.getNomeCompleto());
@@ -23,8 +23,8 @@ public class ClientesMapper {
         return out;
     }
 
-    public static Cliente clientesRequestDomToClientes(ClientesRequestDom clientesRequestDom){
-        Cliente out = new Cliente();
+    public static Clientes clientesRequestDomToClientes(ClientesRequestDom clientesRequestDom){
+        Clientes out = new Clientes();
         out.setNomeCompleto(clientesRequestDom.getNomeCompleto());
         out.setCpfOuCnpj(clientesRequestDom.getCpfOuCnpj());
         out.setDataNascimento(clientesRequestDom.getDataNascimento());
