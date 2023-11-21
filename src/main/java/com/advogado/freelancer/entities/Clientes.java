@@ -14,37 +14,51 @@ public class Clientes {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "nome_completo", nullable = false)
     private String nomeCompleto;
+
     @Column(name = "cpf_ou_cnpj", nullable = false)
     private String cpfOuCnpj;
+
     @Column(name = "data_nascimento", nullable = false)
     private Date dataNascimento;
-    @Column
+
+    @Column(nullable = false)
     private String rua;
+
     @Column
     private int numero;
-    @Column
+
+    @Column(nullable = false)
     private String bairro;
-    @Column
+
+    @Column(nullable = false)
     private String uf;
-    @Column
+
+    @Column(nullable = false)
     private int cep;
-    @Column
+
+    @Column(nullable = false)
     private String pais;
-    @Column
+
+    @Column(length = 11)
     private String telefone;
+
     @Column
     private String email;
+
     @Column
     private String complemento;
-    @Column
+
+    @Column(nullable = false)
     private boolean status;
+
     @Column
     private LocalDateTime deletedAt;
 
     // Não precisa gerar Gets e Sets, pois o "@Data" vai fazer isso
 
-   // rua, numero, bairro, uf, cep, pais, telefone, email, complemento, status
+
 
 }
