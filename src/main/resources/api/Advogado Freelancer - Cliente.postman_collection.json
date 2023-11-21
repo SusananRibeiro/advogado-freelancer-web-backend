@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "b8aaf569-fb19-4cb6-b909-6b2e366b7b22",
+		"name": "Advogado Freelancer - Cliente",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27532932",
+		"_collection_link": "https://warped-firefly-748319.postman.co/workspace/Team-Workspace~62cf569d-daee-4ae8-87d9-2d1be527e9f2/collection/27532932-b8aaf569-fb19-4cb6-b909-6b2e366b7b22?action=share&source=collection_link&creator=27532932"
+	},
+	"item": [
+		{
+			"name": "Cliente GET - Todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/clientes/carregue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"carregue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente GET por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/clientes/carregue/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"carregue",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nomeCompleto\": \"Nome Teste\",\r\n    \"cpfOuCnpj\": \"01234567892\",\r\n    \"dataNascimento\": \"1990-12-23T02:00:00.000+00:00\",\r\n    \"rua\": \"Rua teste\",\r\n    \"numero\": 200,\r\n    \"bairro\": \"Bairro teste\",\r\n    \"uf\": \"SC\",\r\n    \"cep\": 88800200,\r\n    \"pais\": \"Pais\",\r\n    \"telefone\": \"48999889988\",\r\n    \"email\": \"teste@mail.com\",\r\n    \"complemento\": \"Sem complemento\",\r\n    \"status\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/clientes/crie",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"crie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente PUT",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nomeCompleto\": \"Nome Teste atualizar\",\r\n    \"cpfOuCnpj\": \"01234567892\",\r\n    \"dataNascimento\": \"1990-12-23T02:00:00.000+00:00\",\r\n    \"rua\": \"Rua teste\",\r\n    \"numero\": 200,\r\n    \"bairro\": \"Bairro teste\",\r\n    \"uf\": \"SC\",\r\n    \"cep\": 88800200,\r\n    \"pais\": \"Pais\",\r\n    \"telefone\": \"48999889988\",\r\n    \"email\": \"teste@mail.com\",\r\n    \"complemento\": \"Sem complemento\",\r\n    \"status\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/clientes/atualize/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"atualize",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/clientes/delete/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"delete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
