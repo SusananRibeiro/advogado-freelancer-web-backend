@@ -12,7 +12,7 @@ public class ClientesRequestDom {
 
     private String rua;
 
-    private int numero;
+    private String numero;
 
     private String bairro;
 
@@ -28,7 +28,7 @@ public class ClientesRequestDom {
 
     private String complemento;
 
-    private boolean status;
+    private String status;
 
 
     // Não precisa gerar Gets, Sets e toString, pois o "@Data" vai fazer isso

@@ -19,7 +19,7 @@ public class ClientesMapper {
         out.setTelefone(clientes.getTelefone());
         out.setEmail(clientes.getEmail());
         out.setComplemento(clientes.getComplemento());
-        out.setStatus(clientes.isStatus());
+        out.setStatus(clientes.getStatus());
         return out;
     }
 
@@ -37,7 +37,7 @@ public class ClientesMapper {
         out.setTelefone(clientesRequestDom.getTelefone());
         out.setEmail(clientesRequestDom.getEmail());
         out.setComplemento(clientesRequestDom.getComplemento());
-        out.setStatus(clientesRequestDom.isStatus());
+        out.setStatus(clientesRequestDom.getStatus());
         return out;
     }
 

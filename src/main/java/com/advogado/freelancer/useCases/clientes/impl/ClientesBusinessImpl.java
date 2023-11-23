@@ -10,7 +10,6 @@ import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClientesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -71,7 +70,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
             record.setTelefone(clientesRequestDom.getTelefone());
             record.setEmail(clientesRequestDom.getEmail());
             record.setComplemento(clientesRequestDom.getComplemento());
-            record.setStatus(clientesRequestDom.isStatus());
+            record.setStatus(clientesRequestDom.getStatus());
 
             return clientesRepository.save(record);
         });
@@ -110,13 +109,39 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         List<String> messages = new ArrayList<>();
 
         if(StringUtil.validarString(cliente.getNomeCompleto())){
-            messages.add("Cliente informado não possui nome!");
+            messages.add("Não foi informado o nome e sobrenome do cliente!");
+        }
+        if(StringUtil.validarString(cliente.getCpfOuCnpj())){
+            messages.add("Não foi informado o CPF/CNPJ do cliente!");
         }
 
-        if(StringUtil.validarString(cliente.getEmail())){
-            messages.add("Cliente informado não possui email!");
+        if (cliente.getDataNascimento() == null) {
+            messages.add("Não foi informada a data de nascimento do cliente!");
         }
 
+        if(StringUtil.validarString(cliente.getRua())){
+            messages.add("Não foi informado a rua do endereço do cliente!");
+        }
+
+        if(StringUtil.validarString(cliente.getBairro())){
+            messages.add("Não foi informado o bairro do endereço do cliente!");
+        }
+
+        if(StringUtil.validarString(cliente.getUf())){
+            messages.add("Não foi informado a UF do endereço do cliente!");
+        }
+        if(StringUtil.validarString(String.valueOf(cliente.getCep()))){
+            messages.add("Não foi informado o CEP do endereço do cliente!");
+        }
+        if(StringUtil.validarString(cliente.getPais())){
+            messages.add("Não foi informado o país do endereço do cliente!");
+        }
+        if(StringUtil.validarString(cliente.getTelefone())){
+            messages.add("Não foi informado o telefone do cliente!");
+        }
+        if(StringUtil.validarString(cliente.getStatus())){
+            messages.add("Não foi informado o status do cliente!");
+        }
         return messages;
     }
 
