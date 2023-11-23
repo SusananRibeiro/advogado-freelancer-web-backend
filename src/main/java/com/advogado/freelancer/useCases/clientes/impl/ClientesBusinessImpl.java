@@ -70,7 +70,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
             record.setTelefone(clientesRequestDom.getTelefone());
             record.setEmail(clientesRequestDom.getEmail());
             record.setComplemento(clientesRequestDom.getComplemento());
-            record.setStatus(clientesRequestDom.isStatus());
+            record.setStatus(clientesRequestDom.getStatus());
 
             return clientesRepository.save(record);
         });
@@ -139,7 +139,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         if(StringUtil.validarString(cliente.getTelefone())){
             messages.add("Não foi informado o telefone do cliente!");
         }
-        if(StringUtil.validarString(String.valueOf(cliente.isStatus()))){
+        if(StringUtil.validarString(cliente.getStatus())){
             messages.add("Não foi informado o status do cliente!");
         }
         return messages;

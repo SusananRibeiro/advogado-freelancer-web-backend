@@ -28,7 +28,7 @@ public class Clientes {
     private String rua;
 
     @Column
-    private int numero;
+    private String numero;
 
     @Column(nullable = false)
     private String bairro;
@@ -52,7 +52,7 @@ public class Clientes {
     private String complemento;
 
     @Column(nullable = false)
-    private boolean status;
+    private String status;
 
     @Column
     private LocalDateTime deletedAt;
