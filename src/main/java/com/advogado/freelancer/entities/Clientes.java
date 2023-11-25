@@ -34,6 +34,9 @@ public class Clientes {
     private String bairro;
 
     @Column(nullable = false)
+    private String cidade;
+
+    @Column(nullable = false)
     private String uf;
 
     @Column(nullable = false)
@@ -51,14 +54,13 @@ public class Clientes {
     @Column
     private String complemento;
 
-    @Column(nullable = false)
+    @Column
     private String status;
 
     @Column
     private LocalDateTime deletedAt;
 
     // Não precisa gerar Gets e Sets, pois o "@Data" vai fazer isso
-
 
 
 }

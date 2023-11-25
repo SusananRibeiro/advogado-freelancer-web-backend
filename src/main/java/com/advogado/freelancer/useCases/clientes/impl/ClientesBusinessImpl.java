@@ -64,6 +64,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
             record.setRua(clientesRequestDom.getRua());
             record.setNumero(clientesRequestDom.getNumero());
             record.setBairro(clientesRequestDom.getBairro());
+            record.setCidade(clientesRequestDom.getCidade());
             record.setUf(clientesRequestDom.getUf());
             record.setCep(clientesRequestDom.getCep());
             record.setPais(clientesRequestDom.getPais());
@@ -127,6 +128,10 @@ public class ClientesBusinessImpl implements ClientesBusiness {
             messages.add("Não foi informado o bairro do endereço do cliente!");
         }
 
+        if(StringUtil.validarString(cliente.getBairro())){
+            messages.add("Não foi informado a cidade do endereço do cliente!");
+        }
+
         if(StringUtil.validarString(cliente.getUf())){
             messages.add("Não foi informado a UF do endereço do cliente!");
         }
@@ -139,9 +144,9 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         if(StringUtil.validarString(cliente.getTelefone())){
             messages.add("Não foi informado o telefone do cliente!");
         }
-        if(StringUtil.validarString(cliente.getStatus())){
-            messages.add("Não foi informado o status do cliente!");
-        }
+//        if(StringUtil.validarString(cliente.getStatus())){
+//            messages.add("Não foi informado o status do cliente!");
+//        }
         return messages;
     }
 

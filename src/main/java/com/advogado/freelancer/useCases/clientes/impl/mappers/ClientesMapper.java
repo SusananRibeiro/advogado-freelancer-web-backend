@@ -13,6 +13,7 @@ public class ClientesMapper {
         out.setRua(clientes.getRua());
         out.setNumero(clientes.getNumero());
         out.setBairro(clientes.getBairro());
+        out.setCidade(clientes.getCidade());
         out.setUf(clientes.getUf());
         out.setCep(clientes.getCep());
         out.setPais(clientes.getPais());
@@ -31,6 +32,7 @@ public class ClientesMapper {
         out.setRua(clientesRequestDom.getRua());
         out.setNumero(clientesRequestDom.getNumero());
         out.setBairro(clientesRequestDom.getBairro());
+        out.setCidade(clientesRequestDom.getCidade());
         out.setUf(clientesRequestDom.getUf());
         out.setCep(clientesRequestDom.getCep());
         out.setPais(clientesRequestDom.getPais());
