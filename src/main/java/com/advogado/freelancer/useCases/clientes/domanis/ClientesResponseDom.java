@@ -17,6 +17,8 @@ public class ClientesResponseDom {
 
     private String bairro;
 
+    private String cidade;
+
     private String uf;
 
     private int cep;
