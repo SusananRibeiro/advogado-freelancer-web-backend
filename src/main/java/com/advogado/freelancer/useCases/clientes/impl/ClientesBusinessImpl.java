@@ -1,5 +1,4 @@
 package com.advogado.freelancer.useCases.clientes.impl;
-
 import com.advogado.freelancer.entities.Clientes;
 import com.advogado.freelancer.frameWork.annotions.Business;
 import com.advogado.freelancer.frameWork.utils.SenacException;
@@ -10,7 +9,10 @@ import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClientesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,7 +62,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         Optional<Clientes> clientes = clientesRepository.findById(id).map(record -> {
             record.setNomeCompleto(clientesRequestDom.getNomeCompleto());
             record.setCpfOuCnpj(clientesRequestDom.getCpfOuCnpj());
-            record.setDataNascimento(clientesRequestDom.getDataNascimento());
+            record.setDataNascimento(converterDataBrasileiraParaDataAmericanaPostgres(clientesRequestDom.getDataNascimento()));
             record.setRua(clientesRequestDom.getRua());
             record.setNumero(clientesRequestDom.getNumero());
             record.setBairro(clientesRequestDom.getBairro());
@@ -148,6 +150,20 @@ public class ClientesBusinessImpl implements ClientesBusiness {
 //            messages.add("Não foi informado o status do cliente!");
 //        }
         return messages;
+    }
+
+    public static String converterDataBrasileiraParaDataAmericanaPostgres(String dataBrasileira) {
+        String dataFormatoPostgres = "";
+        SimpleDateFormat formatoBrasileiro = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatoAmericano = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date data = formatoBrasileiro.parse(dataBrasileira); // converte string para Date
+            dataFormatoPostgres = formatoAmericano.format(data);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dataFormatoPostgres;
     }
 
 }

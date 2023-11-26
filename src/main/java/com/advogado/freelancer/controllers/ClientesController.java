@@ -42,7 +42,7 @@ public class ClientesController {
         return ResponseEntity.ok(clientesService.carregarClienteById(id));
     }
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/cadastro-cliente/crie")
+    @PostMapping("/crie")
     @LogRest
     public ResponseEntity<?> criarCliente
             (@RequestBody ClientesRequestDom clientesRequestDom){
@@ -60,7 +60,7 @@ public class ClientesController {
         }
     }
     @CrossOrigin(origins = "http://localhost:4200")
-    @PutMapping("/cadastro-cliente/atualize/{id}")
+    @PutMapping("/atualize/{id}")
     @LogRest
     public ResponseEntity<?> atualizarCliente
             (@PathVariable Long id,

@@ -9,7 +9,7 @@ public class ClientesResponseDom {
 
     private String cpfOuCnpj;
 
-    private Date dataNascimento;
+    private String dataNascimento;
 
     private String rua;
 

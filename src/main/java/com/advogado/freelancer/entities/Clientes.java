@@ -21,8 +21,8 @@ public class Clientes {
     @Column(name = "cpf_ou_cnpj", nullable = false)
     private String cpfOuCnpj;
 
-    @Column(name = "data_nascimento", nullable = false)
-    private Date dataNascimento;
+    @Column(name = "data_nascimento", nullable = false, length = 10)
+    private String dataNascimento;
 
     @Column(nullable = false)
     private String rua;
@@ -36,7 +36,7 @@ public class Clientes {
     @Column(nullable = false)
     private String cidade;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 2)
     private String uf;
 
     @Column(nullable = false)
