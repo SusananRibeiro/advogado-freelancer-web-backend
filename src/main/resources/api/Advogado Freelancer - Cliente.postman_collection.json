@@ -55,7 +55,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nomeCompleto\": \"Nome Teste 2\",\r\n    \"cpfOuCnpj\": \"01234567892321\",\r\n    \"dataNascimento\": \"1990-12-23\",\r\n    \"rua\": \"Rua teste\",\r\n    \"numero\": \"sem numero\",\r\n    \"bairro\": \"Bairro teste\",\r\n    \"cidade\": \"Cidade teste\",\r\n    \"uf\": \"SC\",\r\n    \"cep\": 88800200,\r\n    \"pais\": \"Pais\",\r\n    \"telefone\": \"48999889988\",\r\n    \"email\": \"teste@mail.com\",\r\n    \"complemento\": \"Sem complemento\",\r\n    \"status\": \"Inativo\"\r\n}",
+					"raw": "{\r\n    \"nomeCompleto\": \"Nome Teste 2\",\r\n    \"cpfOuCnpj\": \"01234567892321\",\r\n    \"dataNascimento\": \"23/12/1991\",\r\n    \"rua\": \"Rua teste\",\r\n    \"numero\": \"sem numero\",\r\n    \"bairro\": \"Bairro teste\",\r\n    \"cidade\": \"Cidade teste\",\r\n    \"uf\": \"SC\",\r\n    \"cep\": 88800200,\r\n    \"pais\": \"Pais\",\r\n    \"telefone\": \"48999889988\",\r\n    \"email\": \"teste@mail.com\",\r\n    \"complemento\": \"Sem complemento\",\r\n    \"status\": \"Inativo\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -63,7 +63,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/clientes/cadastro-cliente/crie",
+					"raw": "http://localhost:8080/clientes/crie",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -71,7 +71,6 @@
 					"port": "8080",
 					"path": [
 						"clientes",
-						"cadastro-cliente",
 						"crie"
 					]
 				}
@@ -85,7 +84,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nomeCompleto\": \"Nome Teste atualizar\",\r\n    \"cpfOuCnpj\": \"01234567892\",\r\n    \"dataNascimento\": \"1990-12-23\",\r\n    \"rua\": \"Rua teste\",\r\n    \"numero\": \"200\",\r\n    \"bairro\": \"Bairro teste\",\r\n    \"cidade\": \"Cidade teste\",\r\n    \"uf\": \"SC\",\r\n    \"cep\": 88800200,\r\n    \"pais\": \"Pais\",\r\n    \"telefone\": \"48999889988\",\r\n    \"email\": \"teste@mail.com\",\r\n    \"complemento\": \"Sem complemento\",\r\n    \"status\": \"Inativo\"\r\n}",
+					"raw": "{\r\n    \"nomeCompleto\": \"Nome Teste atualizar\",\r\n    \"cpfOuCnpj\": \"01234567892\",\r\n    \"dataNascimento\": \"23/02/1991\",\r\n    \"rua\": \"Rua teste\",\r\n    \"numero\": \"200\",\r\n    \"bairro\": \"Bairro teste\",\r\n    \"cidade\": \"Cidade teste\",\r\n    \"uf\": \"SC\",\r\n    \"cep\": 88800200,\r\n    \"pais\": \"Pais\",\r\n    \"telefone\": \"48999889988\",\r\n    \"email\": \"teste@mail.com\",\r\n    \"complemento\": \"Sem complemento\",\r\n    \"status\": \"Inativo\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -93,7 +92,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/clientes/cadastro-cliente/atualize/2",
+					"raw": "http://localhost:8080/clientes/atualize/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -101,9 +100,8 @@
 					"port": "8080",
 					"path": [
 						"clientes",
-						"cadastro-cliente",
 						"atualize",
-						"2"
+						"5"
 					]
 				}
 			},

@@ -3,6 +3,10 @@ import com.advogado.freelancer.entities.Clientes;
 import com.advogado.freelancer.useCases.clientes.domanis.ClientesRequestDom;
 import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ClientesMapper {
     public static ClientesResponseDom clientesToClientesResponseDom(Clientes clientes){
         ClientesResponseDom out = new ClientesResponseDom();
@@ -24,11 +28,14 @@ public class ClientesMapper {
         return out;
     }
 
+    // Método para converter ClientesRequestDom para Clientes
     public static Clientes clientesRequestDomToClientes(ClientesRequestDom clientesRequestDom){
         Clientes out = new Clientes();
         out.setNomeCompleto(clientesRequestDom.getNomeCompleto());
         out.setCpfOuCnpj(clientesRequestDom.getCpfOuCnpj());
-        out.setDataNascimento(clientesRequestDom.getDataNascimento());
+
+        // Convertendo a data de nascimento
+        out.setDataNascimento(converterDataBrasileiraParaDataAmericanaPostgres(clientesRequestDom.getDataNascimento()));
         out.setRua(clientesRequestDom.getRua());
         out.setNumero(clientesRequestDom.getNumero());
         out.setBairro(clientesRequestDom.getBairro());
@@ -41,6 +48,21 @@ public class ClientesMapper {
         out.setComplemento(clientesRequestDom.getComplemento());
         out.setStatus(clientesRequestDom.getStatus());
         return out;
+    }
+
+    // Convertendo a data de nascimento
+    public static String converterDataBrasileiraParaDataAmericanaPostgres(String dataBrasileira) {
+        String dataFormatoPostgres = "";
+        SimpleDateFormat formatoBrasileiro = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatoAmericano = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date data = formatoBrasileiro.parse(dataBrasileira); // converte string para Date
+            dataFormatoPostgres = formatoAmericano.format(data);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dataFormatoPostgres;
     }
 
 }
