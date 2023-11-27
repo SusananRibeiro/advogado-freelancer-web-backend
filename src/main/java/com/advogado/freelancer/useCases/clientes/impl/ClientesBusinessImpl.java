@@ -68,7 +68,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
             record.setNumero(clientesRequestDom.getNumero());
             record.setBairro(clientesRequestDom.getBairro());
             record.setCidade(clientesRequestDom.getCidade());
-            record.setUf(clientesRequestDom.getUf());
+            record.setUf(clientesRequestDom.getUf().toUpperCase());
             record.setCep(clientesRequestDom.getCep());
             record.setPais(clientesRequestDom.getPais());
             record.setTelefone(clientesRequestDom.getTelefone());
