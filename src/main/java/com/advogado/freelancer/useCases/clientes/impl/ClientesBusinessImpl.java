@@ -1,5 +1,6 @@
 package com.advogado.freelancer.useCases.clientes.impl;
 import com.advogado.freelancer.entities.Clientes;
+import com.advogado.freelancer.frameWork.ConversorData;
 import com.advogado.freelancer.frameWork.annotions.Business;
 import com.advogado.freelancer.frameWork.utils.SenacException;
 import com.advogado.freelancer.frameWork.utils.StringUtil;
@@ -62,7 +63,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         Optional<Clientes> clientes = clientesRepository.findById(id).map(record -> {
             record.setNomeCompleto(clientesRequestDom.getNomeCompleto());
             record.setCpfOuCnpj(clientesRequestDom.getCpfOuCnpj());
-            record.setDataNascimento(converterDataBrasileiraParaDataAmericanaPostgres(clientesRequestDom.getDataNascimento()));
+            record.setDataNascimento(ConversorData.converterDataBrasileiraParaDataAmericana(clientesRequestDom.getDataNascimento()));
             record.setRua(clientesRequestDom.getRua());
             record.setNumero(clientesRequestDom.getNumero());
             record.setBairro(clientesRequestDom.getBairro());
@@ -146,24 +147,10 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         if(StringUtil.validarString(cliente.getTelefone())){
             messages.add("Não foi informado o telefone do cliente!");
         }
-//        if(StringUtil.validarString(cliente.getStatus())){
+//      if(StringUtil.validarString(cliente.getStatus())){
 //            messages.add("Não foi informado o status do cliente!");
-//        }
+//      }
         return messages;
-    }
-
-    public static String converterDataBrasileiraParaDataAmericanaPostgres(String dataBrasileira) {
-        String dataFormatoPostgres = "";
-        SimpleDateFormat formatoBrasileiro = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat formatoAmericano = new SimpleDateFormat("yyyy-MM-dd");
-
-        try {
-            Date data = formatoBrasileiro.parse(dataBrasileira); // converte string para Date
-            dataFormatoPostgres = formatoAmericano.format(data);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return dataFormatoPostgres;
     }
 
 }
