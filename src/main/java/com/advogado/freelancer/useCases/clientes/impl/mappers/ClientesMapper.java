@@ -1,11 +1,7 @@
 package com.advogado.freelancer.useCases.clientes.impl.mappers;
 import com.advogado.freelancer.entities.Clientes;
-import com.advogado.freelancer.frameWork.ConversorData;
 import com.advogado.freelancer.useCases.clientes.domanis.ClientesRequestDom;
 import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ClientesMapper {
 
@@ -25,7 +21,7 @@ public class ClientesMapper {
         out.setTelefone(clientes.getTelefone());
         out.setEmail(clientes.getEmail());
         out.setComplemento(clientes.getComplemento());
-        out.setStatus(clientes.getStatus());
+        out.setStatus(clientes.isStatus());
         return out;
     }
 
@@ -35,7 +31,7 @@ public class ClientesMapper {
 
         out.setNomeCompleto(clientesRequestDom.getNomeCompleto());
         out.setCpfOuCnpj(clientesRequestDom.getCpfOuCnpj());
-        out.setDataNascimento(ConversorData.converterDataBrasileiraParaDataAmericana(clientesRequestDom.getDataNascimento())); // Convertendo a data de nascimento
+        out.setDataNascimento(clientesRequestDom.getDataNascimento()); // Convertendo a data de nascimento
         out.setRua(clientesRequestDom.getRua());
         out.setNumero(clientesRequestDom.getNumero());
         out.setBairro(clientesRequestDom.getBairro());
@@ -46,7 +42,7 @@ public class ClientesMapper {
         out.setTelefone(clientesRequestDom.getTelefone());
         out.setEmail(clientesRequestDom.getEmail());
         out.setComplemento(clientesRequestDom.getComplemento());
-        out.setStatus(clientesRequestDom.getStatus());
+        out.setStatus(clientesRequestDom.isStatus());
         return out;
     }
 

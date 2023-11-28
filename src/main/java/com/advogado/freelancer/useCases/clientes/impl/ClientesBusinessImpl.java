@@ -1,6 +1,5 @@
 package com.advogado.freelancer.useCases.clientes.impl;
 import com.advogado.freelancer.entities.Clientes;
-import com.advogado.freelancer.frameWork.ConversorData;
 import com.advogado.freelancer.frameWork.annotions.Business;
 import com.advogado.freelancer.frameWork.utils.SenacException;
 import com.advogado.freelancer.frameWork.utils.StringUtil;
@@ -10,10 +9,8 @@ import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClientesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,7 +60,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         Optional<Clientes> clientes = clientesRepository.findById(id).map(record -> {
             record.setNomeCompleto(clientesRequestDom.getNomeCompleto());
             record.setCpfOuCnpj(clientesRequestDom.getCpfOuCnpj());
-            record.setDataNascimento(ConversorData.converterDataBrasileiraParaDataAmericana(clientesRequestDom.getDataNascimento()));
+            record.setDataNascimento(clientesRequestDom.getDataNascimento());
             record.setRua(clientesRequestDom.getRua());
             record.setNumero(clientesRequestDom.getNumero());
             record.setBairro(clientesRequestDom.getBairro());
@@ -74,7 +71,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
             record.setTelefone(clientesRequestDom.getTelefone());
             record.setEmail(clientesRequestDom.getEmail());
             record.setComplemento(clientesRequestDom.getComplemento());
-            record.setStatus(clientesRequestDom.getStatus());
+            record.setStatus(clientesRequestDom.isStatus());
 
             return clientesRepository.save(record);
         });
@@ -91,6 +88,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
 
     @Override
     public void deletarCliente(Long id) {
+
         clientesRepository.deleteById(id);
     }
 
@@ -102,9 +100,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
             throw new SenacException("Cliente não encontrado");
         }
         Clientes cliente = optionalCliente.get();
-
         ClientesResponseDom out = ClientesMapper.clientesToClientesResponseDom(cliente);
-
         return out;
     }
 
@@ -114,6 +110,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
 
         if(StringUtil.validarString(cliente.getNomeCompleto())){
             messages.add("Não foi informado o nome e sobrenome do cliente!");
+            return messages;
         }
         if(StringUtil.validarString(cliente.getCpfOuCnpj())){
             messages.add("Não foi informado o CPF/CNPJ do cliente!");
@@ -147,9 +144,9 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         if(StringUtil.validarString(cliente.getTelefone())){
             messages.add("Não foi informado o telefone do cliente!");
         }
-//      if(StringUtil.validarString(cliente.getStatus())){
-//            messages.add("Não foi informado o status do cliente!");
-//      }
+//          if(StringUtil.validarString(cliente.isStatus())){
+//                messages.add("Não foi informado o status do cliente!");
+//          }
         return messages;
     }
 
