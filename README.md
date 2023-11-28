@@ -1,4 +1,4 @@
-# Sistema Advogado freelancer
+# Sistema Web Advogado freelancer
 Desenvolver e entregar uma plataforma web que permita ao advogado freelancer gerenciar agendamentos, audiências e reuniões, associando-os a processos e clientes de forma organizada.
 
 ### Tecnologias:
