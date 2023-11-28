@@ -99,10 +99,14 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
             return messages;
         }
 
-        if(StringUtil.validarString(usuarioRequestDom.getSenha())){
-            messages.add("Não foi informado a senha!");
+        if(StringUtil.validarString(usuarioRequestDom.getSenha()) ||
+                !usuarioRequestDom.getSenha().matches(".{8}")){
+            messages.add("Senha inválida, deve conter exatamente 8 dígitos!");
             return messages;
         }
+
+
+
         return messages;
     }
 

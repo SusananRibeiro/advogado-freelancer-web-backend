@@ -112,7 +112,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
             messages.add("Não foi informado o nome e sobrenome do cliente!");
             return messages;
         }
-        if(StringUtil.validarString(cliente.getCpfOuCnpj())){
+        if(StringUtil.validarString(cliente.getCpfOuCnpj()) || cliente.getCpfOuCnpj().matches("\\d{11}")){
             messages.add("Não foi informado o CPF/CNPJ do cliente!");
         }
 
@@ -141,7 +141,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         if(StringUtil.validarString(cliente.getPais())){
             messages.add("Não foi informado o país do endereço do cliente!");
         }
-        if(StringUtil.validarString(cliente.getTelefone())){
+        if(StringUtil.validarString(cliente.getTelefone()) || cliente.getTelefone().matches("\\d{11}")){
             messages.add("Não foi informado o telefone do cliente!");
         }
 //          if(StringUtil.validarString(cliente.isStatus())){
