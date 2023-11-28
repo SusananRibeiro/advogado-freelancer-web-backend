@@ -1,5 +1,7 @@
 package com.advogado.freelancer.useCases.clientes.domanis;
 import lombok.Data;
+
+import java.time.LocalDate;
 import java.util.Date;
 @Data
 public class ClientesRequestDom {
@@ -8,7 +10,7 @@ public class ClientesRequestDom {
 
     private String cpfOuCnpj;
 
-    private String dataNascimento;
+    private LocalDate dataNascimento;
 
     private String rua;
 
@@ -30,7 +32,7 @@ public class ClientesRequestDom {
 
     private String complemento;
 
-    private String status;
+    private boolean status;
 
 
     // Não precisa gerar Gets, Sets e toString, pois o "@Data" vai fazer isso
