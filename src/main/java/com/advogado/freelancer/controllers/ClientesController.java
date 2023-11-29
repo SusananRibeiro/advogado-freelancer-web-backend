@@ -87,7 +87,7 @@ public class ClientesController {
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping("/carregue/pag")
+    @GetMapping("/carregue/page")
     public ResponseEntity<DataReponse> carregarPedidos(@RequestParam(defaultValue = "0") int page,
                                                        @RequestParam(defaultValue = "10") int size){
         // Page é o número da página
