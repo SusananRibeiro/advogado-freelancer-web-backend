@@ -7,6 +7,7 @@ import com.advogado.freelancer.useCases.usuarios.UsuarioBusiness;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 import com.advogado.freelancer.useCases.usuarios.impl.mappers.UsuarioMapper;
+import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioRelatorioRepository;
 import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
@@ -18,6 +19,9 @@ import java.util.stream.Collectors;
 public class UsuarioBusinessImpl implements UsuarioBusiness {
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private UsuarioRelatorioRepository usuarioRelatorioRepository;
 
     @Override
     public List<UsuarioResponseDom> carregarUsuario() {
@@ -91,23 +95,24 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
 
         if(StringUtil.validarString(usuarioRequestDom.getNomeCompleto())){
             messages.add("Não foi informado o nome e sobrenome!");
-            return messages;
         }
 
         if(StringUtil.validarString(usuarioRequestDom.getEmail())){
             messages.add("Não foi informado e-mail!");
-            return messages;
+        }
+        if(verificarExistenciaEmail(usuarioRequestDom.getEmail()) == true) {
+            messages.add("E-mail já cadastrado!");
         }
 
         if(StringUtil.validarString(usuarioRequestDom.getSenha()) ||
                 !usuarioRequestDom.getSenha().matches(".{8}")){
             messages.add("Senha inválida, deve conter exatamente 8 dígitos!");
-            return messages;
         }
-
-
-
         return messages;
+    }
+
+    public boolean verificarExistenciaEmail(String email) {
+        return usuarioRelatorioRepository.existsByEmail(email);
     }
 
 }

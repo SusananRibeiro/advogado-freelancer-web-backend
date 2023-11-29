@@ -17,7 +17,7 @@ public class Usuario {
     @Column(name = "nome_completo", nullable = false)
     private String nomeCompleto;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false, length = 8)

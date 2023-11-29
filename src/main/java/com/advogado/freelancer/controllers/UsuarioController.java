@@ -2,8 +2,6 @@ package com.advogado.freelancer.controllers;
 import com.advogado.freelancer.frameWork.annotions.LogRest;
 import com.advogado.freelancer.frameWork.utils.ResponseUtil;
 import com.advogado.freelancer.frameWork.utils.SenacException;
-import com.advogado.freelancer.useCases.clientes.domanis.ClientesRequestDom;
-import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 import com.advogado.freelancer.useCases.usuarios.impl.UsuarioServiceImpl;
@@ -13,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -21,7 +18,6 @@ import java.util.List;
 public class UsuarioController {
     @Autowired
     private UsuarioServiceImpl usuarioService;
-
     @Autowired
     private UsuarioRepository usuarioRepository;
     @CrossOrigin(origins = "http://localhost:4200")

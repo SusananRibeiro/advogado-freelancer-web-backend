@@ -20,7 +20,7 @@ public class Clientes {
     @Column(name = "nome_completo", nullable = false)
     private String nomeCompleto;
 
-    @Column(name = "cpf_ou_cnpj", nullable = false)
+    @Column(name = "cpf_ou_cnpj", nullable = false, unique = true)
     private String cpfOuCnpj;
 
     @Column(name = "data_nascimento", nullable = false)
@@ -56,7 +56,7 @@ public class Clientes {
     @Column
     private String complemento;
 
-    @Column
+    @Column(nullable = false)
     private boolean status;
 
     @Column

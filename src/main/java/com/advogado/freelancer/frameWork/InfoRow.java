@@ -4,7 +4,6 @@ public class InfoRow {
     private int page;
     private Long totalElements;
     private int pageCount;
-
     public int getPage() {
         return page;
     }
