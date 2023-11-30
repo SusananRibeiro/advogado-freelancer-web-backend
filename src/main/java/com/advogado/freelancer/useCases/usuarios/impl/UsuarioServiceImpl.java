@@ -33,7 +33,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioResponseDom carregarUsuarioById(Long id) throws SenacException {
-        return usuarioBusiness.carregarUsuarioById(id);
+    public UsuarioResponseDom carregarUsuariosById(Long id) throws SenacException {
+        return usuarioBusiness.carregarUsuariosById(id);
+    }
+    // TESTE Login
+    @Override
+    public boolean carregarUsuarioByIdEmailSenha(Long id, String email, String senha) throws SenacException {
+        return usuarioBusiness.carregarUsuarioByIdEmailSenha(id, email, senha);
     }
 }

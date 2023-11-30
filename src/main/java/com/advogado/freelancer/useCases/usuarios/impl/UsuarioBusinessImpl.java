@@ -1,8 +1,11 @@
 package com.advogado.freelancer.useCases.usuarios.impl;
+import com.advogado.freelancer.entities.Clientes;
 import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.frameWork.annotions.Business;
 import com.advogado.freelancer.frameWork.utils.SenacException;
 import com.advogado.freelancer.frameWork.utils.StringUtil;
+import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
+import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.usuarios.UsuarioBusiness;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
@@ -19,7 +22,6 @@ import java.util.stream.Collectors;
 public class UsuarioBusinessImpl implements UsuarioBusiness {
     @Autowired
     private UsuarioRepository usuarioRepository;
-
     @Autowired
     private UsuarioRelatorioRepository usuarioRelatorioRepository;
 
@@ -78,17 +80,37 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
     }
 
     @Override
-    public UsuarioResponseDom carregarUsuarioById(Long id) throws SenacException {
+    public UsuarioResponseDom carregarUsuariosById(Long id) throws SenacException {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
 
         if(!optionalUsuario.isPresent()) {
-            throw new SenacException("Usuário não encontrado");
+            throw new SenacException("Usuario não encontrado");
         }
+
         Usuario usuario = optionalUsuario.get();
         UsuarioResponseDom out = UsuarioMapper.usuariosToUsuariosResponseDom(usuario);
         return out;
     }
 
+    // TESTE Login
+    @Override
+    public boolean carregarUsuarioByIdEmailSenha(Long id, String email, String senha) throws SenacException {
+
+        Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
+
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
+            return usuario.getEmail().equals(email) && usuario.getSenha().equals(senha);
+        }
+
+        return false;
+    }
+
+
+// Validações
+    public boolean verificarExistenciaEmail(String email) {
+        return usuarioRelatorioRepository.existsByEmail(email);
+    }
 
     private List<String> validacaoUsuario(UsuarioRequestDom usuarioRequestDom){
         List<String> messages = new ArrayList<>();
@@ -111,8 +133,5 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
         return messages;
     }
 
-    public boolean verificarExistenciaEmail(String email) {
-        return usuarioRelatorioRepository.existsByEmail(email);
-    }
 
 }

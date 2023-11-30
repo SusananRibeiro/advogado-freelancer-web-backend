@@ -2,6 +2,7 @@ package com.advogado.freelancer.controllers;
 import com.advogado.freelancer.frameWork.annotions.LogRest;
 import com.advogado.freelancer.frameWork.utils.ResponseUtil;
 import com.advogado.freelancer.frameWork.utils.SenacException;
+import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 import com.advogado.freelancer.useCases.usuarios.impl.UsuarioServiceImpl;
@@ -20,6 +21,7 @@ public class UsuarioController {
     private UsuarioServiceImpl usuarioService;
     @Autowired
     private UsuarioRepository usuarioRepository;
+
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/carregue")
     @LogRest
@@ -30,8 +32,9 @@ public class UsuarioController {
     @GetMapping("/carregue/{id}")
     @LogRest
     public ResponseEntity<UsuarioResponseDom> carregarUsuarioById(@PathVariable Long id) throws SenacException {
-        return ResponseEntity.ok(usuarioService.carregarUsuarioById(id));
+        return ResponseEntity.ok(usuarioService.carregarUsuariosById(id));
     }
+
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/crie")
     @LogRest
@@ -74,9 +77,16 @@ public class UsuarioController {
     @LogRest
     public ResponseEntity<Void> deletarUsuario(@PathVariable Long id){
         usuarioService.deletarUsuario(id);
-
         return ResponseEntity.ok(null);
     }
 
+    // TESTE Login --> Precisa ser um post
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/carregue/id={id}&email={email}&senha={senha}")
+    @LogRest
+    public ResponseEntity<Boolean> carregarUsuarioByIdEmailSenha(@PathVariable Long id, @PathVariable String email,
+                                                                 @PathVariable String senha) throws SenacException {
+        return ResponseEntity.ok(usuarioService.carregarUsuarioByIdEmailSenha(id, email, senha));
+    }
 
 }
