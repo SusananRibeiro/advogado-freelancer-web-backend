@@ -9,5 +9,8 @@ public interface UsuarioBusiness {
     UsuarioResponseDom criarUsuario(UsuarioRequestDom usuarioRequestDom) throws Exception;
     UsuarioResponseDom atualizarUsuario(Long id, UsuarioRequestDom usuarioRequestDom) throws SenacException;
     void deletarUsuario(Long id);
-    UsuarioResponseDom carregarUsuarioById(Long id) throws SenacException;
+
+    UsuarioResponseDom carregarUsuariosById(Long id) throws SenacException;
+
+    boolean carregarUsuarioByIdEmailSenha(Long id, String email, String senha) throws SenacException;
 }
