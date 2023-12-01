@@ -23,6 +23,9 @@ public class Usuario {
     @Column(nullable = false, length = 8)
     private String senha;
 
+    @Column(nullable = false, length = 8)
+    private String confirmaSenha;
+
     @Column
     private LocalDateTime deletedAt;
 

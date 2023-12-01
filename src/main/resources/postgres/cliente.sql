@@ -49,7 +49,7 @@ VALUES
 ('Amanda Cardoso', '78901234567', '1980-07-03', 'Rua da Montanha', '30', 'Monte Verde', 'Curitiba', 'PR', '80010000', 
 		'Brasil', '41987654321', 'amanda@email.com', false, 'Casa 12'),	
 ('José Rodrigues', '90123456789', '1973-10-22', 'Avenida das Estrelas', '1000', 'Estelar', 'Manaus', 'AM', '69050030', 
-		'Brasil', '92987654321', 'jose@email.com', true, 'Apartamento 202')
+		'Brasil', '92987654321', 'jose@email.com', true, 'Apartamento 202'),
 ('Fernanda Lima', '12345098765', '1992-12-07', 'Rua das Margaridas', '80', 'Jardim Primavera', 'Goiânia', 'GO', '74000000', 
 		'Brasil', '62987654321', 'fernanda@email.com', true, 'Casa 5'),
 ('Gustavo Ribeiro', '23456777012', '1987-05-19', 'Alameda dos Girassóis', '25', 'Floral', 'João Pessoa', 'PB', '58035000', 

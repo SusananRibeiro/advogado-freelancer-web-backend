@@ -9,7 +9,6 @@ import com.advogado.freelancer.useCases.clientes.domanis.ClientesRequestDom;
 import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 import com.advogado.freelancer.useCases.clientes.impl.ClientesServiceImpl;
 import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
-import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClientePaginadoRepository;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClientesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,23 +25,21 @@ import java.util.stream.Collectors;
 @RequestMapping("/clientes")
 public class ClientesController {
     @Autowired
-    private ClientesServiceImpl clientesService;
-
+    private ClientesServiceImpl clientesServiceImpl;
     @Autowired
     private ClientesRespository clientesRespository;
-    @Autowired
-    private ClientePaginadoRepository clientePaginadoRepository;
+
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/carregue")
     @LogRest
     public ResponseEntity<List<ClientesResponseDom>> carregarClientes(){
-        return ResponseEntity.ok(clientesService.carregarClientes());
+        return ResponseEntity.ok(clientesServiceImpl.carregarClientes());
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/carregue/{id}")
     @LogRest
     public ResponseEntity<ClientesResponseDom> carregarClienteById(@PathVariable Long id) throws SenacException {
-        return ResponseEntity.ok(clientesService.carregarClienteById(id));
+        return ResponseEntity.ok(clientesServiceImpl.carregarClienteById(id));
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/crie")
@@ -51,7 +48,7 @@ public class ClientesController {
             (@RequestBody ClientesRequestDom clientesRequestDom){
 
         try{
-            return ResponseEntity.status(HttpStatus.CREATED).body(clientesService.criarCliente(clientesRequestDom));
+            return ResponseEntity.status(HttpStatus.CREATED).body(clientesServiceImpl.criarCliente(clientesRequestDom));
         } catch (SenacException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(ResponseUtil.responseMapper(e.getMessages()));
@@ -70,7 +67,7 @@ public class ClientesController {
              @RequestBody ClientesRequestDom clientesRequestDom){
         try {
             return ResponseEntity.ok(
-                    clientesService.atualizarCliente(id, clientesRequestDom));
+                    clientesServiceImpl.atualizarCliente(id, clientesRequestDom));
         } catch (SenacException e){
             e.printStackTrace();
             return ResponseEntity.badRequest().body(ResponseUtil.responseMapper(e.getMessages()));
@@ -85,13 +82,13 @@ public class ClientesController {
     @DeleteMapping("/delete/{id}")
     @LogRest
     public ResponseEntity<Void> deletarCliente(@PathVariable Long id){
-        clientesService.deletarCliente(id);
+        clientesServiceImpl.deletarCliente(id);
 
         return ResponseEntity.ok(null);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/carregue/page/page={page}&size={size}")
+    @GetMapping("/carregue/page")
     public ResponseEntity<DataReponse> carregarClientePorPagina(@RequestParam(defaultValue = "0") int page,
                                                        @RequestParam(defaultValue = "10") int size){
         // Page é o número da página
@@ -118,18 +115,6 @@ public class ClientesController {
         out.setRows(pedidosResponseList);
 
         return ResponseEntity.ok(out);
-    }
-
-    // Paginação 2
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping(path = "/page/{numeroPagina}/{qtdePagina}")
-    public Iterable<Clientes> obterClientesPorPagina(@PathVariable int numeroPagina, @PathVariable int qtdePagina) {
-        // Validação para não permitir mais que 5 elementos por página.
-        if (qtdePagina >= 5) {
-            qtdePagina = 5;
-        }
-        Pageable page = PageRequest.of(numeroPagina, qtdePagina);
-        return clientePaginadoRepository.findAll(page);
     }
 
 }
