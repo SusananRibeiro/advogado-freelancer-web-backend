@@ -10,7 +10,6 @@ import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClienteRelatorioRepository;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClientesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,11 +37,12 @@ public class ClientesBusinessImpl implements ClientesBusiness {
 
     @Override
     public ClientesResponseDom criarCliente(ClientesRequestDom clientesRequestDom) throws Exception {
-        List<String> messages = this.validacaoManutencaoCliente(clientesRequestDom);
+//        List<String> messages =
+                this.validacaoManutencaoCliente(clientesRequestDom);
 
-        if(!messages.isEmpty()){
-            throw new SenacException(messages);
-        }
+//        if(!messages.isEmpty()){
+//            throw new SenacException(messages);
+//        }
 
         Clientes clientes = ClientesMapper.clientesRequestDomToClientes(clientesRequestDom);
 
@@ -55,11 +55,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
 
     @Override
     public ClientesResponseDom atualizarCliente(Long id, ClientesRequestDom clientesRequestDom) throws SenacException {
-        List<String> messages = this.validacaoManutencaoCliente(clientesRequestDom);
-
-        if(!messages.isEmpty()){
-            throw new SenacException(messages);
-        }
+        this.validacaoManutencaoCliente(clientesRequestDom);
 
         Optional<Clientes> clientes = clientesRepository.findById(id).map(record -> {
             record.setNomeCompleto(clientesRequestDom.getNomeCompleto());
@@ -107,57 +103,46 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         return out;
     }
 
-
-    private List<String> validacaoManutencaoCliente(ClientesRequestDom cliente){
-        List<String> messages = new ArrayList<>();
-
+    private void validacaoManutencaoCliente(ClientesRequestDom cliente) throws SenacException {
         if(StringUtil.validarString(cliente.getNomeCompleto())){
-            messages.add("Não foi informado o nome e sobrenome do cliente!");
-            return messages;
+            throw new SenacException("Não foi informado o nome e sobrenome do cliente!");
         }
         if(StringUtil.validarString(cliente.getCpfOuCnpj()) || !cliente.getCpfOuCnpj().matches("\\d{11}")){
-            messages.add("Não foi informado o CPF/CNPJ do cliente!");
+            throw new SenacException("Não foi informado o CPF/CNPJ do cliente!");
         }
-
         if(validarCPF(cliente.getCpfOuCnpj()) == true) {
-            messages.add("CPF/CNPJ já cadastrado!");
+            throw new SenacException("CPF/CNPJ já cadastrado!");
         }
-
         if (cliente.getDataNascimento() == null) {
-            messages.add("Não foi informada a data de nascimento do cliente!");
+            throw new SenacException("Não foi informada a data de nascimento do cliente!");
         }
-
         if(StringUtil.validarString(cliente.getRua())){
-            messages.add("Não foi informado a rua do endereço do cliente!");
+            throw new SenacException("Não foi informado a rua do endereço do cliente!");
         }
-
         if(StringUtil.validarString(cliente.getBairro())){
-            messages.add("Não foi informado o bairro do endereço do cliente!");
+            throw new SenacException("Não foi informado o bairro do endereço do cliente!");
         }
-
         if(StringUtil.validarString(cliente.getBairro())){
-            messages.add("Não foi informado a cidade do endereço do cliente!");
+            throw new SenacException("Não foi informado a cidade do endereço do cliente!");
         }
-
         if(StringUtil.validarString(cliente.getUf())){
-            messages.add("Não foi informado a UF do endereço do cliente!");
+            throw new SenacException("Não foi informado a UF do endereço do cliente!");
         }
         if(StringUtil.validarString(String.valueOf(cliente.getCep()))){
-            messages.add("Não foi informado o CEP do endereço do cliente!");
+            throw new SenacException("Não foi informado o CEP do endereço do cliente!");
         }
         if(StringUtil.validarString(cliente.getPais())){
-            messages.add("Não foi informado o país do endereço do cliente!");
+            throw new SenacException("Não foi informado o país do endereço do cliente!");
         }
         if(StringUtil.validarString(cliente.getTelefone()) || !cliente.getTelefone().matches("\\d{11}")){
-            messages.add("Não foi informado o telefone do cliente!");
+            throw new SenacException("Não foi informado o telefone do cliente!");
         }
-          if(StringUtil.validarString(String.valueOf(cliente.isStatus()))){
-                messages.add("Não foi informado o status do cliente!");
-          }
-
-        return messages;
+        if(StringUtil.validarString(String.valueOf(cliente.isStatus()))){
+          throw new SenacException("Não foi informado o status do cliente!");
+        }
     }
 
+    // Cria uma validação
     public boolean validarCPF(String cpfOuCnpj) {
         return clienteRelatorioRepository.existsByCpfOuCnpj(cpfOuCnpj);
     }

@@ -1,11 +1,12 @@
 package com.advogado.freelancer.controllers;
+import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.frameWork.annotions.LogRest;
 import com.advogado.freelancer.frameWork.utils.ResponseUtil;
 import com.advogado.freelancer.frameWork.utils.SenacException;
-import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 import com.advogado.freelancer.useCases.usuarios.impl.UsuarioServiceImpl;
+import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioRelatorioRepository;
 import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,9 @@ public class UsuarioController {
     private UsuarioServiceImpl usuarioService;
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private UsuarioRelatorioRepository usuarioRelatorioRepository;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/carregue")
@@ -88,5 +92,7 @@ public class UsuarioController {
                                                                  @PathVariable String senha) throws SenacException {
         return ResponseEntity.ok(usuarioService.carregarUsuarioByIdEmailSenha(id, email, senha));
     }
+
+
 
 }
