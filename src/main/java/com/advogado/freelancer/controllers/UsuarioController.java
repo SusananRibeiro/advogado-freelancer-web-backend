@@ -3,6 +3,7 @@ import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.frameWork.annotions.LogRest;
 import com.advogado.freelancer.frameWork.utils.ResponseUtil;
 import com.advogado.freelancer.frameWork.utils.SenacException;
+import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioLoginRequest;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 import com.advogado.freelancer.useCases.usuarios.impl.UsuarioServiceImpl;
@@ -86,11 +87,19 @@ public class UsuarioController {
 
     // TESTE Login --> Precisa ser um post
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/carregue/id={id}&email={email}&senha={senha}")
     @LogRest
-    public ResponseEntity<Boolean> carregarUsuarioByIdEmailSenha(@PathVariable Long id, @PathVariable String email,
-                                                                 @PathVariable String senha) throws SenacException {
-        return ResponseEntity.ok(usuarioService.carregarUsuarioByIdEmailSenha(id, email, senha));
+    @PostMapping("/login")
+    public ResponseEntity<String> fazerLogin(@RequestBody UsuarioLoginRequest usuarioLoginRequest) {
+        String email = usuarioLoginRequest.getEmail();
+        String senha = usuarioLoginRequest.getSenha();
+
+        Usuario usuario = usuarioService.fazerLogin(email, senha);
+
+        if (usuario != null) {
+            return ResponseEntity.ok("Login realizado com sucesso!");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválida.");
+        }
     }
 
 

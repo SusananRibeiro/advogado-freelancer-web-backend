@@ -1,4 +1,5 @@
 package com.advogado.freelancer.useCases.usuarios.impl;
+import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.frameWork.utils.SenacException;
 import com.advogado.freelancer.useCases.usuarios.UsuarioService;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
@@ -12,7 +13,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     private UsuarioBusinessImpl usuarioBusiness;
     @Override
     public List<UsuarioResponseDom> carregarUsuarios() {
-
         return usuarioBusiness.carregarUsuario();
     }
 
@@ -36,9 +36,13 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioResponseDom carregarUsuariosById(Long id) throws SenacException {
         return usuarioBusiness.carregarUsuariosById(id);
     }
+
     // TESTE Login
     @Override
-    public boolean carregarUsuarioByIdEmailSenha(Long id, String email, String senha) throws SenacException {
-        return usuarioBusiness.carregarUsuarioByIdEmailSenha(id, email, senha);
+    public Usuario fazerLogin(String email, String senha) {
+        return usuarioBusiness.fazerLogin(email, senha);
     }
+
+
+
 }
