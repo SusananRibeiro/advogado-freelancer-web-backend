@@ -8,4 +8,5 @@ public class UsuarioRequestDom {
     private String nomeCompleto;
     private String email;
     private String senha;
+    private String confirmaSenha;
 }

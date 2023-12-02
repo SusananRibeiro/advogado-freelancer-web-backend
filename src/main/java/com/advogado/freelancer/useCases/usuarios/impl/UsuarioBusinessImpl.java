@@ -39,6 +39,9 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
     @Override
     public UsuarioResponseDom criarUsuario(UsuarioRequestDom usuarioRequestDom) throws Exception {
         List<String> messages = this.validacaoUsuario(usuarioRequestDom);
+        if(!usuarioRequestDom.getConfirmaSenha().equals(usuarioRequestDom.getSenha())) {
+            throw new SenacException("Senha informada inválida!");
+        }
 
         if(!messages.isEmpty()){
             throw new SenacException(messages);
@@ -86,7 +89,6 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
         if(!optionalUsuario.isPresent()) {
             throw new SenacException("Usuario não encontrado");
         }
-
         Usuario usuario = optionalUsuario.get();
         UsuarioResponseDom out = UsuarioMapper.usuariosToUsuariosResponseDom(usuario);
         return out;
@@ -94,16 +96,8 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
 
     // TESTE Login
     @Override
-    public boolean carregarUsuarioByIdEmailSenha(Long id, String email, String senha) throws SenacException {
-
-        Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
-
-        if (optionalUsuario.isPresent()) {
-            Usuario usuario = optionalUsuario.get();
-            return usuario.getEmail().equals(email) && usuario.getSenha().equals(senha);
-        }
-
-        return false;
+    public Usuario fazerLogin(String email, String senha) {
+        return usuarioRelatorioRepository.findByEmailAndSenha(email, senha);
     }
 
 
@@ -132,6 +126,5 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
         }
         return messages;
     }
-
 
 }

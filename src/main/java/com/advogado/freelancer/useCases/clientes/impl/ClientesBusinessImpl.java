@@ -37,56 +37,64 @@ public class ClientesBusinessImpl implements ClientesBusiness {
 
     @Override
     public ClientesResponseDom criarCliente(ClientesRequestDom clientesRequestDom) throws Exception {
-//        List<String> messages =
-                this.validacaoManutencaoCliente(clientesRequestDom);
-
-//        if(!messages.isEmpty()){
-//            throw new SenacException(messages);
-//        }
-
+        this.validacaoManutencaoCliente(clientesRequestDom);
         Clientes clientes = ClientesMapper.clientesRequestDomToClientes(clientesRequestDom);
-
+        if(validarCPF(clientes.getCpfOuCnpj()) == true) {
+            throw new SenacException("CPF/CNPJ já cadastrado!");
+        }
         Clientes resultClientes = clientesRepository.save(clientes);
-
         ClientesResponseDom out = ClientesMapper.clientesToClientesResponseDom(resultClientes);
-
         return out;
     }
 
     @Override
     public ClientesResponseDom atualizarCliente(Long id, ClientesRequestDom clientesRequestDom) throws SenacException {
-        this.validacaoManutencaoCliente(clientesRequestDom);
+        Optional<Clientes> clienteExistente = clientesRepository.findById(id);
 
-        Optional<Clientes> clientes = clientesRepository.findById(id).map(record -> {
-            record.setNomeCompleto(clientesRequestDom.getNomeCompleto());
-            record.setRua(clientesRequestDom.getRua());
-            record.setNumero(clientesRequestDom.getNumero());
-            record.setBairro(clientesRequestDom.getBairro());
-            record.setCidade(clientesRequestDom.getCidade());
-            record.setUf(clientesRequestDom.getUf().toUpperCase());
-            record.setCep(clientesRequestDom.getCep());
-            record.setPais(clientesRequestDom.getPais());
-            record.setTelefone(clientesRequestDom.getTelefone());
-            record.setEmail(clientesRequestDom.getEmail());
-            record.setComplemento(clientesRequestDom.getComplemento());
-            record.setStatus(clientesRequestDom.isStatus());
+        if (clienteExistente.isPresent()) {
+            Clientes cliente = clienteExistente.get();
+            // Implemente suas próprias validações aqui, se necessário
+            validacaoManutencaoCliente(clientesRequestDom);
 
-            return clientesRepository.save(record);
-        });
+            // Verificar se o CPF do cliente existente corresponde ao CPF informado na requisição
+            if (!cliente.getCpfOuCnpj().equals(clientesRequestDom.getCpfOuCnpj())) {
+                // CPF informado é diferente do CPF armazenado para este cliente, então valida o CPF existente
+                if (validarCPF(clientesRequestDom.getCpfOuCnpj())) {
+                    throw new SenacException("CPF/CNPJ já cadastrado para outro cliente!");
+                }
+            }
+            // Impedir a alteração do CPF
+            if (!cliente.getCpfOuCnpj().equals(clientesRequestDom.getCpfOuCnpj())) {
+                throw new SenacException("Não é permitido alterar o CPF/CNPJ do cliente!");
+            }
+            // Atualizar os dados do cliente (exceto CPF)
+            cliente.setNomeCompleto(clientesRequestDom.getNomeCompleto());
+            cliente.setRua(clientesRequestDom.getRua());
+            cliente.setNumero(clientesRequestDom.getNumero());
+            cliente.setBairro(clientesRequestDom.getBairro());
+            cliente.setCidade(clientesRequestDom.getCidade());
+            cliente.setUf(clientesRequestDom.getUf().toUpperCase());
+            cliente.setCep(clientesRequestDom.getCep());
+            cliente.setPais(clientesRequestDom.getPais());
+            cliente.setTelefone(clientesRequestDom.getTelefone());
+            cliente.setEmail(clientesRequestDom.getEmail());
+            cliente.setComplemento(clientesRequestDom.getComplemento());
+            cliente.setStatus(clientesRequestDom.isStatus());
 
-        if(!clientes.isPresent()){
-            throw new SenacException("Cliente informando não existe!");
+            // Salvar as alterações no banco de dados
+            Clientes clienteAtualizado = clientesRepository.save(cliente);
+
+            // Criar e retornar a resposta de sucesso com os dados atualizados do cliente
+            ClientesResponseDom out = ClientesMapper.clientesToClientesResponseDom(clienteAtualizado);
+            return out;
+        } else {
+            throw new SenacException("Cliente informado não existe!");
         }
-
-        ClientesResponseDom out =
-                ClientesMapper.clientesToClientesResponseDom(clientes.get());
-
-        return out;
     }
+
 
     @Override
     public void deletarCliente(Long id) {
-
         clientesRepository.deleteById(id);
     }
 
@@ -110,9 +118,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         if(StringUtil.validarString(cliente.getCpfOuCnpj()) || !cliente.getCpfOuCnpj().matches("\\d{11}")){
             throw new SenacException("Não foi informado o CPF/CNPJ do cliente!");
         }
-        if(validarCPF(cliente.getCpfOuCnpj()) == true) {
-            throw new SenacException("CPF/CNPJ já cadastrado!");
-        }
+
         if (cliente.getDataNascimento() == null) {
             throw new SenacException("Não foi informada a data de nascimento do cliente!");
         }

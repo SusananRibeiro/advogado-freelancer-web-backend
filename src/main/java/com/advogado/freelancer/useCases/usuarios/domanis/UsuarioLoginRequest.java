@@ -2,10 +2,7 @@ package com.advogado.freelancer.useCases.usuarios.domanis;
 import lombok.Data;
 
 @Data
-public class UsuarioResponseDom {
-    private Long id;
-    private String nomeCompleto;
+public class UsuarioLoginRequest {
     private String email;
     private String senha;
-    private String confirmaSenha;
 }

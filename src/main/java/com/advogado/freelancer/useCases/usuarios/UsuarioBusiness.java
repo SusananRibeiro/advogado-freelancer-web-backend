@@ -1,4 +1,5 @@
 package com.advogado.freelancer.useCases.usuarios;
+import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.frameWork.utils.SenacException;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
@@ -11,6 +12,5 @@ public interface UsuarioBusiness {
     void deletarUsuario(Long id);
 
     UsuarioResponseDom carregarUsuariosById(Long id) throws SenacException;
-
-    boolean carregarUsuarioByIdEmailSenha(Long id, String email, String senha) throws SenacException;
+    public Usuario fazerLogin(String email, String senha);
 }
