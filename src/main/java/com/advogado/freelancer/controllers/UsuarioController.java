@@ -98,6 +98,7 @@ public class UsuarioController {
         if (usuario != null) {
             return ResponseEntity.ok("Login realizado com sucesso!");
         } else {
+            // "HttpStatus.UNAUTHORIZED" indica que a requisição não foi aplicada porque não possui credenciais de autenticação válidas para o recurso solicitado
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválida.");
         }
     }

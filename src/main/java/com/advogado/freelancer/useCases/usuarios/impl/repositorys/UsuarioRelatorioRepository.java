@@ -1,5 +1,6 @@
 package com.advogado.freelancer.useCases.usuarios.impl.repositorys;
 import com.advogado.freelancer.entities.Usuario;
+import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
