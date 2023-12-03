@@ -1,7 +1,10 @@
 SELECT * FROM clientes;
 select * from usuarios;
 
-
+SELECT * CASE 
+WHEN status THEN 'ativo' ELSE 'inativo' END AS status
+FROM clientes
+ORDER BY status ASC;
 		
 		
 --- Excluir -------------------
