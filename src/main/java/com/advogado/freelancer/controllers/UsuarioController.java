@@ -3,7 +3,7 @@ import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.frameWork.annotions.LogRest;
 import com.advogado.freelancer.frameWork.utils.ResponseUtil;
 import com.advogado.freelancer.frameWork.utils.SenacException;
-import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioLoginRequest;
+import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioLoginDTO;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 import com.advogado.freelancer.useCases.usuarios.impl.UsuarioServiceImpl;
@@ -89,9 +89,9 @@ public class UsuarioController {
     @CrossOrigin(origins = "http://localhost:4200")
     @LogRest
     @PostMapping("/login")
-    public ResponseEntity<String> fazerLogin(@RequestBody UsuarioLoginRequest usuarioLoginRequest) {
-        String email = usuarioLoginRequest.getEmail();
-        String senha = usuarioLoginRequest.getSenha();
+    public ResponseEntity<String> fazerLogin(@RequestBody UsuarioLoginDTO usuarioLoginDTO) {
+        String email = usuarioLoginDTO.getEmail();
+        String senha = usuarioLoginDTO.getSenha();
 
         Usuario usuario = usuarioService.fazerLogin(email, senha);
 
