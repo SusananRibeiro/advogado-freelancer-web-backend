@@ -9,10 +9,6 @@ import java.util.List;
 
 @Service
 public interface UsuarioService {
-    List<UsuarioResponseDom> carregarUsuarios();
     UsuarioResponseDom criarUsuario(UsuarioRequestDom usuarioRequestDom) throws Exception;
-    UsuarioResponseDom atualizarUsuario(Long id, UsuarioRequestDom usuarioRequestDom) throws SenacException;
-    void deletarUsuario(Long id);
-    UsuarioResponseDom carregarUsuariosById(Long id) throws SenacException;
     public Usuario fazerLogin(String email, String senha);
 }

@@ -26,16 +26,6 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
     @Autowired
     private UsuarioRelatorioRepository usuarioRelatorioRepository;
 
-    @Override
-    public List<UsuarioResponseDom> carregarUsuario() {
-        List<Usuario> usuarioList = usuarioRepository.findAll();
-
-        List<UsuarioResponseDom> out = usuarioList
-                .stream()
-                .map(UsuarioMapper::usuariosToUsuariosResponseDom)
-                .collect(Collectors.toList());
-        return out;
-    }
 
     @Override
     public UsuarioResponseDom criarUsuario(UsuarioRequestDom usuarioRequestDom) throws Exception {
@@ -47,48 +37,6 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
         Usuario usuario = UsuarioMapper.usuarioRequestDomToUsuario(usuarioRequestDom);
         Usuario resultUsuario = usuarioRepository.save(usuario);
         UsuarioResponseDom out = UsuarioMapper.usuariosToUsuariosResponseDom(resultUsuario);
-        return out;
-    }
-
-    @Override
-    public UsuarioResponseDom atualizarUsuario(Long id, UsuarioRequestDom usuarioRequestDom) throws SenacException {
-        List<String> messages = this.validacaoUsuario(usuarioRequestDom);
-
-        if(!messages.isEmpty()){
-            throw new SenacException(messages);
-        }
-
-        Optional<Usuario> usuario = usuarioRepository.findById(id).map(record -> {
-            record.setNomeCompleto(usuarioRequestDom.getNomeCompleto());
-            record.setEmail(usuarioRequestDom.getEmail());
-            record.setSenha(usuarioRequestDom.getSenha());
-
-            return usuarioRepository.save(record);
-        });
-
-        if(!usuario.isPresent()){
-            throw new SenacException("Usuário informando não existe!");
-        }
-
-        UsuarioResponseDom out = UsuarioMapper.usuariosToUsuariosResponseDom(usuario.get());
-
-        return out;
-    }
-
-    @Override
-    public void deletarUsuario(Long id) {
-        usuarioRepository.deleteById(id);
-    }
-
-    @Override
-    public UsuarioResponseDom carregarUsuariosById(Long id) throws SenacException {
-        Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
-
-        if(!optionalUsuario.isPresent()) {
-            throw new SenacException("Usuário não encontrado");
-        }
-        Usuario usuario = optionalUsuario.get();
-        UsuarioResponseDom out = UsuarioMapper.usuariosToUsuariosResponseDom(usuario);
         return out;
     }
 

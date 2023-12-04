@@ -12,30 +12,10 @@ import java.util.List;
 public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private UsuarioBusinessImpl usuarioBusiness;
-    @Override
-    public List<UsuarioResponseDom> carregarUsuarios() {
-        return usuarioBusiness.carregarUsuario();
-    }
 
     @Override
     public UsuarioResponseDom criarUsuario(UsuarioRequestDom usuarioRequestDom) throws Exception {
         return usuarioBusiness.criarUsuario(usuarioRequestDom);
-    }
-
-    @Override
-    public UsuarioResponseDom atualizarUsuario(Long id, UsuarioRequestDom usuarioRequestDom) throws SenacException {
-        return usuarioBusiness.atualizarUsuario(id, usuarioRequestDom);
-    }
-
-    @Override
-    public void deletarUsuario(Long id) {
-        usuarioBusiness.deletarUsuario(id);
-
-    }
-
-    @Override
-    public UsuarioResponseDom carregarUsuariosById(Long id) throws SenacException {
-        return usuarioBusiness.carregarUsuariosById(id);
     }
 
     // TESTE Login
