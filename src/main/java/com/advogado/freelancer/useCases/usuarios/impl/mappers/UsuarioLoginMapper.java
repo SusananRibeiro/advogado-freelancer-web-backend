@@ -3,6 +3,7 @@ import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioLoginDTO;
 
 public class UsuarioLoginMapper {
+
     // Request - Método para converter UsuarioRequestDom para Usuario
     public static Usuario usuarioLoginDtoToUsuario(UsuarioLoginDTO usuarioLoginDTO){
         Usuario out = new Usuario();

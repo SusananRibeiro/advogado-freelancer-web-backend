@@ -16,7 +16,7 @@ public class ClientesMapper {
         out.setNumero(clientesRequestDom.getNumero());
         out.setBairro(clientesRequestDom.getBairro());
         out.setCidade(clientesRequestDom.getCidade());
-        out.setUf(clientesRequestDom.getUf().toUpperCase());
+        out.setUf(clientesRequestDom.getUf());
         out.setCep(clientesRequestDom.getCep());
         out.setPais(clientesRequestDom.getPais());
         out.setTelefone(clientesRequestDom.getTelefone());
