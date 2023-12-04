@@ -13,6 +13,8 @@ public class AudienciaRequestDom {
 
     private Long clienteId;
 
+    private Long processoId;
+
     private LocalDateTime deleted_at;
 
     private String data;

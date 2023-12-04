@@ -12,6 +12,8 @@ public class AudienciaResponseDom {
 
     private Long clienteId;
 
+    private Long processoId;
+
     private LocalDateTime deleted_at;
 
     private String data;
