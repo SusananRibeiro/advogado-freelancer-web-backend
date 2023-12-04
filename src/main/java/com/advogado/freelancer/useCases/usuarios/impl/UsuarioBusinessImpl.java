@@ -7,6 +7,7 @@ import com.advogado.freelancer.frameWork.utils.StringUtil;
 import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.usuarios.UsuarioBusiness;
+import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioLoginDTO;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 import com.advogado.freelancer.useCases.usuarios.impl.mappers.UsuarioMapper;
@@ -25,23 +26,10 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
     @Autowired
     private UsuarioRelatorioRepository usuarioRelatorioRepository;
 
-    @Override
-    public List<UsuarioResponseDom> carregarUsuario() {
-        List<Usuario> usuarioList = usuarioRepository.findAll();
-
-        List<UsuarioResponseDom> out = usuarioList
-                .stream()
-                .map(UsuarioMapper::usuariosToUsuariosResponseDom)
-                .collect(Collectors.toList());
-        return out;
-    }
 
     @Override
     public UsuarioResponseDom criarUsuario(UsuarioRequestDom usuarioRequestDom) throws Exception {
         List<String> messages = this.validacaoUsuario(usuarioRequestDom);
-        if(!usuarioRequestDom.getConfirmaSenha().equals(usuarioRequestDom.getSenha())) {
-            throw new SenacException("Senha informada inválida!");
-        }
 
         if(!messages.isEmpty()){
             throw new SenacException(messages);
@@ -49,48 +37,6 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
         Usuario usuario = UsuarioMapper.usuarioRequestDomToUsuario(usuarioRequestDom);
         Usuario resultUsuario = usuarioRepository.save(usuario);
         UsuarioResponseDom out = UsuarioMapper.usuariosToUsuariosResponseDom(resultUsuario);
-        return out;
-    }
-
-    @Override
-    public UsuarioResponseDom atualizarUsuario(Long id, UsuarioRequestDom usuarioRequestDom) throws SenacException {
-        List<String> messages = this.validacaoUsuario(usuarioRequestDom);
-
-        if(!messages.isEmpty()){
-            throw new SenacException(messages);
-        }
-
-        Optional<Usuario> usuario = usuarioRepository.findById(id).map(record -> {
-            record.setNomeCompleto(usuarioRequestDom.getNomeCompleto());
-            record.setEmail(usuarioRequestDom.getEmail());
-            record.setSenha(usuarioRequestDom.getSenha());
-
-            return usuarioRepository.save(record);
-        });
-
-        if(!usuario.isPresent()){
-            throw new SenacException("Usuário informando não existe!");
-        }
-
-        UsuarioResponseDom out = UsuarioMapper.usuariosToUsuariosResponseDom(usuario.get());
-
-        return out;
-    }
-
-    @Override
-    public void deletarUsuario(Long id) {
-        usuarioRepository.deleteById(id);
-    }
-
-    @Override
-    public UsuarioResponseDom carregarUsuariosById(Long id) throws SenacException {
-        Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
-
-        if(!optionalUsuario.isPresent()) {
-            throw new SenacException("Usuario não encontrado");
-        }
-        Usuario usuario = optionalUsuario.get();
-        UsuarioResponseDom out = UsuarioMapper.usuariosToUsuariosResponseDom(usuario);
         return out;
     }
 
@@ -124,7 +70,14 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
                 !usuarioRequestDom.getSenha().matches(".{8}")){
             messages.add("Senha inválida, deve conter exatamente 8 dígitos!");
         }
+        if(!validarSenha(usuarioRequestDom.getSenha(), usuarioRequestDom.getConfirmaSenha()) == true) {
+            messages.add("Senha de confirmação inválida!");
+        }
         return messages;
+    }
+
+    public boolean validarSenha(String senha, String senhaConfirmacao) {
+        return senha.equals(senhaConfirmacao);
     }
 
 }

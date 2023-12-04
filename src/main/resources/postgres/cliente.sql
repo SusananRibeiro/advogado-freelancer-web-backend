@@ -8,9 +8,11 @@ ORDER BY status ASC;
 		
 		
 --- Excluir -------------------
-drop table audiencia;	
+drop table audiencia;
+drop table processos;
 drop table clientes;	
 drop table usuarios;
+
 
 
 
