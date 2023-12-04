@@ -24,6 +24,10 @@ public class Audiencia {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Clientes cliente;
 
+    @ManyToOne
+    @JoinColumn(name = "processo_id", nullable = false)
+    private Processo processo;
+
     @Column
     private LocalDateTime deleted_at;
 

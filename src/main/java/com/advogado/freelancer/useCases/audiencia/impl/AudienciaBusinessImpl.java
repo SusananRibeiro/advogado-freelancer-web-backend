@@ -2,6 +2,7 @@ package com.advogado.freelancer.useCases.audiencia.impl;
 
 import com.advogado.freelancer.entities.Audiencia;
 import com.advogado.freelancer.entities.Clientes;
+import com.advogado.freelancer.entities.Processo;
 import com.advogado.freelancer.frameWork.annotions.Business;
 import com.advogado.freelancer.frameWork.utils.SenacException;
 import com.advogado.freelancer.frameWork.utils.StringUtil;
@@ -10,6 +11,7 @@ import com.advogado.freelancer.useCases.audiencia.domains.AudienciaRequestDom;
 import com.advogado.freelancer.useCases.audiencia.domains.AudienciaResponseDom;
 import com.advogado.freelancer.useCases.audiencia.impl.mappers.AudienciaMapper;
 import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaClientesRespository;
+import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaProcessoRepository;
 import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,6 +28,9 @@ public class AudienciaBusinessImpl implements AudienciaBusiness {
 
     @Autowired
     private AudienciaClientesRespository audienciaClientesRespository;
+
+    @Autowired
+    private AudienciaProcessoRepository audienciaProcessoRepository;
     @Override
     public AudienciaResponseDom criarAudiencia(AudienciaRequestDom audienciaRequestDom) throws Exception {
         this.validacaoManutencaoAudiencia(audienciaRequestDom);
@@ -33,6 +38,11 @@ public class AudienciaBusinessImpl implements AudienciaBusiness {
         Optional<Clientes> cliente = audienciaClientesRespository.findById(audienciaRequestDom.getClienteId());
         if(!cliente.isPresent()){
             throw new SenacException("Cliente não encontrado");
+        }
+
+        Optional<Processo> processo = audienciaProcessoRepository.findById(audienciaRequestDom.getProcessoId());
+        if (!processo.isPresent()){
+            throw new SenacException("Processo não encontrado!");
         }
 
         Audiencia audienciaRetorno = AudienciaMapper.audienciaResquestDomToAudiencia(audienciaRequestDom , cliente.get());
@@ -55,7 +65,12 @@ public class AudienciaBusinessImpl implements AudienciaBusiness {
 
         Optional<Clientes> cliente = audienciaClientesRespository.findById(audienciaRequestDom.getClienteId());
         if(!cliente.isPresent()){
-            throw new SenacException("Cliente não encontrado");
+            throw new SenacException("Cliente não encontrado!");
+        }
+
+        Optional<Processo> processo = audienciaProcessoRepository.findById(audienciaRequestDom.getProcessoId());
+        if (!processo.isPresent()){
+            throw new SenacException("Processo não encontrado!");
         }
 
 
@@ -114,6 +129,10 @@ public class AudienciaBusinessImpl implements AudienciaBusiness {
 
         if (audiencia.getClienteId() == null || audiencia.getClienteId()<=0){
             throw new SenacException("Cliente mão informado!");
+        }
+
+        if (audiencia.getProcessoId() == null || audiencia.getProcessoId()<=0){
+            throw new SenacException("Processo não informado");
         }
     }
 
