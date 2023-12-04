@@ -85,23 +85,7 @@ public class UsuarioController {
         return ResponseEntity.ok(null);
     }
 
-    // TESTE Login --> Precisa ser um post
-    @CrossOrigin(origins = "http://localhost:4200")
-    @LogRest
-    @PostMapping("/login")
-    public ResponseEntity<String> fazerLogin(@RequestBody UsuarioLoginDTO usuarioLoginDTO) {
-        String email = usuarioLoginDTO.getEmail();
-        String senha = usuarioLoginDTO.getSenha();
 
-        Usuario usuario = usuarioService.fazerLogin(email, senha);
-
-        if (usuario != null) {
-            return ResponseEntity.ok("Login realizado com sucesso!");
-        } else {
-            // "HttpStatus.UNAUTHORIZED" indica que a requisição não foi aplicada porque não possui credenciais de autenticação válidas para o recurso solicitado
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválida.");
-        }
-    }
 
 
 

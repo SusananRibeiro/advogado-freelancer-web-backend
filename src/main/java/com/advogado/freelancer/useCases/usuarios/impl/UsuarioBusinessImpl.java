@@ -7,6 +7,7 @@ import com.advogado.freelancer.frameWork.utils.StringUtil;
 import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.usuarios.UsuarioBusiness;
+import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioLoginDTO;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 import com.advogado.freelancer.useCases.usuarios.impl.mappers.UsuarioMapper;
@@ -39,9 +40,6 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
     @Override
     public UsuarioResponseDom criarUsuario(UsuarioRequestDom usuarioRequestDom) throws Exception {
         List<String> messages = this.validacaoUsuario(usuarioRequestDom);
-        if(!usuarioRequestDom.getConfirmaSenha().equals(usuarioRequestDom.getSenha())) {
-            throw new SenacException("Senha informada inválida!");
-        }
 
         if(!messages.isEmpty()){
             throw new SenacException(messages);
@@ -87,7 +85,7 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
 
         if(!optionalUsuario.isPresent()) {
-            throw new SenacException("Usuario não encontrado");
+            throw new SenacException("Usuário não encontrado");
         }
         Usuario usuario = optionalUsuario.get();
         UsuarioResponseDom out = UsuarioMapper.usuariosToUsuariosResponseDom(usuario);
@@ -124,7 +122,14 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
                 !usuarioRequestDom.getSenha().matches(".{8}")){
             messages.add("Senha inválida, deve conter exatamente 8 dígitos!");
         }
+        if(!validarSenha(usuarioRequestDom.getSenha(), usuarioRequestDom.getConfirmaSenha()) == true) {
+            messages.add("Senha de confirmação inválida!");
+        }
         return messages;
+    }
+
+    public boolean validarSenha(String senha, String senhaConfirmacao) {
+        return senha.equals(senhaConfirmacao);
     }
 
 }

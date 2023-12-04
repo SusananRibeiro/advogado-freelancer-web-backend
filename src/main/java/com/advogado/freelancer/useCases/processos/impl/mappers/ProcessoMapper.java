@@ -1,5 +1,4 @@
 package com.advogado.freelancer.useCases.processos.impl.mappers;
-
 import com.advogado.freelancer.entities.Clientes;
 import com.advogado.freelancer.entities.Processo;
 import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
