@@ -1,6 +1,7 @@
 package com.advogado.freelancer.entities;
 
 
+import com.advogado.freelancer.frameWork.utils.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
@@ -34,6 +35,10 @@ public class Audiencia {
 
     @Column
     private String local;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 
 }
