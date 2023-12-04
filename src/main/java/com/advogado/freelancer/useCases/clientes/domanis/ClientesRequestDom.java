@@ -1,4 +1,5 @@
 package com.advogado.freelancer.useCases.clientes.domanis;
+import com.advogado.freelancer.frameWork.EstadosDoBrasilEnum;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ public class ClientesRequestDom {
 
     private String cidade;
 
-    private String uf;
+    private EstadosDoBrasilEnum uf;
 
     private int cep;
 

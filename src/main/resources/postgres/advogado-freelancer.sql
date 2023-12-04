@@ -1,36 +1,24 @@
 SELECT * FROM clientes;
 select * from usuarios;
-
-SELECT * CASE 
-WHEN status THEN 'ativo' ELSE 'inativo' END AS status
-FROM clientes
-ORDER BY status ASC;
-		
-		
---- Excluir -------------------
-drop table audiencia;
-drop table processos;
-drop table clientes;	
-drop table usuarios;
+select * from processos;
+select * from audiencia;
 
 
 
 
 --- Inserir Usuario -------------
-INSERT INTO usuarios (nome_completo, email, senha)
+INSERT INTO usuarios (nome_completo, email, senha, confirma_senha)
 VALUES 
-('Maria Silva', 'maria@email.com', 'p@ssw0rd'),
-('Pedro Fernandes', 'pedro@email.com', 'sPwd123!'),
-('Ana Santos', 'ana@email.com', 'anapwd23'),
-('Rafaela Lima', 'rafaela@email.com', 'Rafa#pwd'),
-('Lucas Oliveira', 'lucas@email.com', 'lucasPwd'),
-('Carla Souza', 'carla@email.com', 'cSouza67'),
-('Gustavo Pereira', 'gustavo@email.com', 'GusPwd78'),
-('Mariana Costa', 'mariana@email.com', 'mariPwd'),
-('Fernando Rodrigues', 'fernando@email.com', 'FerPwd12'),
-('Juliana Pereira', 'juliana@email.com', 'juPwd#12');
-
-
+('Maria Silva', 'maria@email.com', 'p@ssw0rd', 'p@ssw0rd'),
+('Pedro Fernandes', 'pedro@email.com', 'sPwd123!', 'sPwd123!'),
+('Ana Santos', 'ana@email.com', 'anapwd23', 'anapwd23'),
+('Rafaela Lima', 'rafaela@email.com', 'Rafa#pwd', 'Rafa#pwd'),
+('Lucas Oliveira', 'lucas@email.com', 'lucasPwd', 'lucasPwd'),
+('Carla Souza', 'carla@email.com', 'cSouza67', 'cSouza67'),
+('Gustavo Pereira', 'gustavo@email.com', 'GusPwd78', 'GusPwd78'),
+('Mariana Costa', 'mariana@email.com', 'mariPwd', 'mariPwd'),
+('Fernando Rodrigues', 'fernando@email.com', 'FerPwd12', 'FerPwd12'),
+('Juliana Pereira', 'juliana@email.com', 'juPwd#12', 'juPwd#12');
 --- Inserir Cliente --------------
 INSERT INTO clientes (nome_completo, cpf_ou_cnpj, data_nascimento, rua, numero, bairro, cidade, uf, cep, 
 		pais, telefone, email, status, complemento)
@@ -75,6 +63,41 @@ VALUES
 		'Brasil', '86987654321', 'tatiana@email.com', false, 'Casa 10'),
 ('Paulo Santos', '23456789912', '1983-05-14', 'Avenida da Praia', '250', 'Beira Mar', 'Natal', 'RN', '59000000', 
 		'Brasil', '84987654321', 'paulo@email.com', true, 'Apartamento 303');
+---- Processo ----	   
+INSERT INTO processos (numero_processo, data_contrato, acao_processo, tribunal, vara, comarca, foro, link_documento, data_abertura, data_fechamento, status, cliente_id)
+VALUES
+    ('2023/001', '2023-01-15', 'Ação 1', 'Tribunal 1', 'Vara 1', 'Comarca 1', 'Foro 1', 'http://linkdocumento1.com', '2023-01-15', '2023-02-28', 'EmAndamento', 1),
+    ('2023/002', '2023-02-20', 'Ação 2', 'Tribunal 2', 'Vara 2', 'Comarca 2', 'Foro 2', 'http://linkdocumento2.com', '2023-02-20', '2023-03-31', 'EmAndamento', 2),
+    ('2023/003', '2023-03-10', 'Ação 3', 'Tribunal 3', 'Vara 3', 'Comarca 3', 'Foro 3', 'http://linkdocumento3.com', '2023-03-10', '2023-04-15', 'EmAndamento', 3),
+    ('2023/004', '2023-04-05', 'Ação 4', 'Tribunal 1', 'Vara 1', 'Comarca 1', 'Foro 1', 'http://linkdocumento4.com', '2023-04-05', '2023-05-20', 'EmAndamento', 4),
+    ('2023/005', '2023-05-15', 'Ação 5', 'Tribunal 2', 'Vara 2', 'Comarca 2', 'Foro 2', 'http://linkdocumento5.com', '2023-05-15', '2023-06-30', 'EmAndamento', 5),
+    ('2023/006', '2023-06-20', 'Ação 6', 'Tribunal 3', 'Vara 3', 'Comarca 3', 'Foro 3', 'http://linkdocumento6.com', '2023-06-20', '2023-07-31', 'EmAndamento', 6),
+    ('2023/007', '2023-07-10', 'Ação 7', 'Tribunal 1', 'Vara 1', 'Comarca 1', 'Foro 1', 'http://linkdocumento7.com', '2023-07-10', '2023-08-15', 'EmAndamento', 7),
+    ('2023/008', '2023-08-05', 'Ação 8', 'Tribunal 2', 'Vara 2', 'Comarca 2', 'Foro 2', 'http://linkdocumento8.com', '2023-08-05', '2023-09-30', 'EmAndamento', 8),
+    ('2023/009', '2023-09-25', 'Ação 9', 'Tribunal 3', 'Vara 3', 'Comarca 3', 'Foro 3', 'http://linkdocumento9.com', '2023-09-25', '2023-10-31', 'EmAndamento', 9),
+    ('2023/010', '2023-10-30', 'Ação 10', 'Tribunal 1', 'Vara 1', 'Comarca 1', 'Foro 1', 'http://linkdocumento10.com', '2023-10-30', '2023-11-30', 'EmAndamento', 10);
 
-
-
+---- Audiencia ----	      
+INSERT INTO audiencia (data, hora, local, status, cliente_id, processo_id)
+VALUES
+    ('2023-01-10', '09:00:00', 'Local 1', 'EM_ANDAMENTO', 1, 1),
+    ('2023-02-15', '10:30:00', 'Local 2', 'EM_ANDAMENTO', 2, 2),
+    ('2023-03-20', '11:45:00', 'Local 3', 'EM_ANDAMENTO', 3, 3),
+    ('2023-04-25', '13:00:00', 'Local 1', 'EM_ANDAMENTO', 4, 4),
+    ('2023-05-30', '14:15:00', 'Local 2', 'EM_ANDAMENTO', 5, 5),
+    ('2023-06-05', '15:30:00', 'Local 3', 'EM_ANDAMENTO', 6, 6),
+    ('2023-07-10', '16:45:00', 'Local 1', 'EM_ANDAMENTO', 7, 7),
+    ('2023-08-15', '17:00:00', 'Local 2', 'EM_ANDAMENTO', 8, 8),
+    ('2023-09-20', '09:30:00', 'Local 3', 'EM_ANDAMENTO', 9, 9),
+    ('2023-10-25', '10:45:00', 'Local 1', 'EM_ANDAMENTO', 10, 10);
+ 
+   
+   
+		
+--- Excluir -------------------
+drop table audiencia;
+drop table processos;
+drop table clientes;	
+drop table usuarios;   
+   
+    

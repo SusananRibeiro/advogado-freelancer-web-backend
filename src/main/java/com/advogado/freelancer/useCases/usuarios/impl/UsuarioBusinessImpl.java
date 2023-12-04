@@ -1,13 +1,9 @@
 package com.advogado.freelancer.useCases.usuarios.impl;
-import com.advogado.freelancer.entities.Clientes;
 import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.frameWork.annotions.Business;
 import com.advogado.freelancer.frameWork.utils.SenacException;
 import com.advogado.freelancer.frameWork.utils.StringUtil;
-import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
-import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.usuarios.UsuarioBusiness;
-import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioLoginDTO;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 import com.advogado.freelancer.useCases.usuarios.impl.mappers.UsuarioMapper;
@@ -16,8 +12,6 @@ import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioReposit
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Business
 public class UsuarioBusinessImpl implements UsuarioBusiness {
