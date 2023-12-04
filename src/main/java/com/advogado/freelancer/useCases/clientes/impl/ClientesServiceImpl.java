@@ -9,29 +9,29 @@ import java.util.List;
 @Service
 public class ClientesServiceImpl implements ClientesService {
     @Autowired
-    private ClientesBusinessImpl clientesBusiness;
+    private ClientesBusinessImpl clientesBusinessImpl;
     @Override
     public List<ClientesResponseDom> carregarClientes() {
-        return clientesBusiness.carregarClientes();
+        return clientesBusinessImpl.carregarClientes();
     }
 
     @Override
     public ClientesResponseDom criarCliente(ClientesRequestDom clientesRequestDom) throws Exception {
-        return clientesBusiness.criarCliente(clientesRequestDom);
+        return clientesBusinessImpl.criarCliente(clientesRequestDom);
     }
 
     @Override
     public ClientesResponseDom atualizarCliente(Long id, ClientesRequestDom clientesRequestDom) throws SenacException {
-        return clientesBusiness.atualizarCliente(id, clientesRequestDom);
+        return clientesBusinessImpl.atualizarCliente(id, clientesRequestDom);
     }
 
     @Override
     public void deletarCliente(Long id) {
-        clientesBusiness.deletarCliente(id);
+        clientesBusinessImpl.deletarCliente(id);
     }
 
     @Override
     public ClientesResponseDom carregarClienteById(Long id) throws SenacException {
-        return clientesBusiness.carregarClienteById(id);
+        return clientesBusinessImpl.carregarClienteById(id);
     }
 }

@@ -25,21 +25,21 @@ import java.util.stream.Collectors;
 @RequestMapping("/clientes")
 public class ClientesController {
     @Autowired
-    private ClientesServiceImpl clientesService;
-
+    private ClientesServiceImpl clientesServiceImpl;
     @Autowired
     private ClientesRespository clientesRespository;
+
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/carregue")
     @LogRest
     public ResponseEntity<List<ClientesResponseDom>> carregarClientes(){
-        return ResponseEntity.ok(clientesService.carregarClientes());
+        return ResponseEntity.ok(clientesServiceImpl.carregarClientes());
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/carregue/{id}")
     @LogRest
     public ResponseEntity<ClientesResponseDom> carregarClienteById(@PathVariable Long id) throws SenacException {
-        return ResponseEntity.ok(clientesService.carregarClienteById(id));
+        return ResponseEntity.ok(clientesServiceImpl.carregarClienteById(id));
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/crie")
@@ -48,7 +48,7 @@ public class ClientesController {
             (@RequestBody ClientesRequestDom clientesRequestDom){
 
         try{
-            return ResponseEntity.status(HttpStatus.CREATED).body(clientesService.criarCliente(clientesRequestDom));
+            return ResponseEntity.status(HttpStatus.CREATED).body(clientesServiceImpl.criarCliente(clientesRequestDom));
         } catch (SenacException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(ResponseUtil.responseMapper(e.getMessages()));
@@ -67,7 +67,7 @@ public class ClientesController {
              @RequestBody ClientesRequestDom clientesRequestDom){
         try {
             return ResponseEntity.ok(
-                    clientesService.atualizarCliente(id, clientesRequestDom));
+                    clientesServiceImpl.atualizarCliente(id, clientesRequestDom));
         } catch (SenacException e){
             e.printStackTrace();
             return ResponseEntity.badRequest().body(ResponseUtil.responseMapper(e.getMessages()));
@@ -82,13 +82,14 @@ public class ClientesController {
     @DeleteMapping("/delete/{id}")
     @LogRest
     public ResponseEntity<Void> deletarCliente(@PathVariable Long id){
-        clientesService.deletarCliente(id);
+        clientesServiceImpl.deletarCliente(id);
 
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping("/carregue/pag")
-    public ResponseEntity<DataReponse> carregarPedidos(@RequestParam(defaultValue = "0") int page,
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/carregue/page")
+    public ResponseEntity<DataReponse> carregarClientePorPagina(@RequestParam(defaultValue = "0") int page,
                                                        @RequestParam(defaultValue = "10") int size){
         // Page é o número da página
         // Size é a quantidade de registros por página
@@ -102,7 +103,7 @@ public class ClientesController {
                 .collect(Collectors.toList());
 
         InfoRow infoRow = new InfoRow();
-        // numero da pagina atual
+        // número da pagina atual
         infoRow.setPage(pedidoList.getNumber() + 1);
         // total de paginas a serem listadas
         infoRow.setPageCount(pedidoList.getTotalPages());

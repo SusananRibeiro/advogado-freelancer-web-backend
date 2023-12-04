@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "6674de27-a778-4ff2-8657-f1624c79da04",
+		"name": "Advogado Freelancer - Processo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29131667"
+	},
+	"item": [
+		{
+			"name": "Processo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/processos/carregar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"processos",
+						"carregar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Processo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"numeroProcesso\": \"202020\",\r\n    \"dataContrato\": \"2023-10-05\",\r\n    \"acaoProcesso\": \"acao teste\",\r\n    \"tribunal\": \"tribunal teste\",\r\n    \"vara\": \"vara teste\",\r\n    \"comarca\": \"comarca teste\",\r\n    \"foro\": \"foro teste\",\r\n    \"linkDocumento\": \"C:/temp\",\r\n    \"dataAbertura\": \"2023-10-05\",\r\n    \"dataFechamento\": \"2024-12-04\",\r\n    \"status\": 0,\r\n    \"clienteId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/processos/criar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"processos",
+						"criar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Processo por Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/processos/carregar/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"processos",
+						"carregar",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Processo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"numeroProcesso\": \"12345\",\r\n    \"dataContrato\": \"2023-10-05\",\r\n    \"acaoProcesso\": \"acao teste\",\r\n    \"tribunal\": \"tribunal teste\",\r\n    \"vara\": \"vara teste\",\r\n    \"comarca\": \"comarca teste\",\r\n    \"foro\": \"foro alterado\",\r\n    \"linkDocumento\": \"C:/temp\",\r\n    \"dataAbertura\": \"2023-10-05\",\r\n    \"dataFechamento\": \"2024-12-04\",\r\n    \"status\": 1,\r\n    \"clienteId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/processos/atualizar/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"processos",
+						"atualizar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Processo",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/processos/deletar/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"processos",
+						"deletar",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Processo Page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/processos/carregar/page",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"processos",
+						"carregar",
+						"page"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

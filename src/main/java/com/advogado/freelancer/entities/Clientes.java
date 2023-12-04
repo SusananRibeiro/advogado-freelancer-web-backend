@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -18,11 +20,11 @@ public class Clientes {
     @Column(name = "nome_completo", nullable = false)
     private String nomeCompleto;
 
-    @Column(name = "cpf_ou_cnpj", nullable = false)
+    @Column(name = "cpf_ou_cnpj", nullable = false, unique = true)
     private String cpfOuCnpj;
 
-    @Column(name = "data_nascimento", nullable = false, length = 10)
-    private String dataNascimento;
+    @Column(name = "data_nascimento", nullable = false)
+    private LocalDate dataNascimento;
 
     @Column(nullable = false)
     private String rua;
@@ -54,8 +56,8 @@ public class Clientes {
     @Column
     private String complemento;
 
-    @Column
-    private String status;
+    @Column(nullable = false)
+    private boolean status;
 
     @Column
     private LocalDateTime deletedAt;
