@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -100,7 +101,7 @@ public class ProcessoController {
 
         try {
             processoServiceImpl.deletarProcesso(id);
-            return ResponseEntity.ok("Processo removido!");
+            return ResponseEntity.ok(Map.of("message", "Processo removido!"));
         } catch (SenacException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(ResponseUtil.responseMapper(e.getMessages()));
