@@ -80,7 +80,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
             cliente.setTelefone(clientesRequestDom.getTelefone());
             cliente.setEmail(clientesRequestDom.getEmail());
             cliente.setComplemento(clientesRequestDom.getComplemento());
-            cliente.setStatus(clientesRequestDom.isStatus());
+            cliente.setStatus(clientesRequestDom.getStatus());
 
             // Salvar as alterações no banco de dados
             Clientes clienteAtualizado = clientesRepository.save(cliente);
@@ -147,7 +147,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         if(StringUtil.validarString(cliente.getTelefone()) || !cliente.getTelefone().matches("\\d{11}")){
             throw new SenacException("O telefone é obrigatório.");
         }
-        if(StringUtil.validarString(String.valueOf(cliente.isStatus()))){
+        if(StringUtil.validarString(String.valueOf(cliente.getStatus()))){
           throw new SenacException("O status é obrigatório.");
         }
     }
