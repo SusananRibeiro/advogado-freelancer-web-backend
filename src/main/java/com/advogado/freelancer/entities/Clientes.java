@@ -1,5 +1,6 @@
 package com.advogado.freelancer.entities;
 import com.advogado.freelancer.frameWork.EstadosDoBrasilEnum;
+import com.advogado.freelancer.frameWork.StatusAtivoInativoEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
@@ -56,8 +57,8 @@ public class Clientes {
     @Column
     private String complemento;
 
-    @Column(nullable = false)
-    private boolean status;
+    @Enumerated(EnumType.STRING)
+    private StatusAtivoInativoEnum status;
 
     @Column
     private LocalDateTime deletedAt;
