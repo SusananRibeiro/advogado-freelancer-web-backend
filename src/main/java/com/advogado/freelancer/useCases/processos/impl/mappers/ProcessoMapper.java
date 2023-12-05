@@ -43,9 +43,12 @@ public class ProcessoMapper {
         out.setDataAbertura(processo.getDataAbertura());
         out.setDataFechamento(processo.getDataFechamento());
         out.setStatus(processo.getStatus());
-        out.setClienteId(processo.getCliente().getId());
 
-        out.setCliente(ClientesMapper.clientesToClientesResponseDom(processo.getCliente()));
+        if (processo.getCliente() != null)
+        {
+            out.setClienteId(processo.getCliente().getId());
+            out.setCliente(ClientesMapper.clientesToClientesResponseDom(processo.getCliente()));
+        }
 
         return out;
     }
