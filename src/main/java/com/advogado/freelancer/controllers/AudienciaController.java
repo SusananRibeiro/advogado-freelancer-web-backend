@@ -1,5 +1,4 @@
 package com.advogado.freelancer.controllers;
-
 import com.advogado.freelancer.frameWork.annotions.LogRest;
 import com.advogado.freelancer.frameWork.utils.ResponseUtil;
 import com.advogado.freelancer.frameWork.utils.SenacException;
@@ -12,11 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
-@RequestMapping("/audiencia")
+@RequestMapping("/audiencias")
 public class AudienciaController {
     @Autowired
     private AudienciaService audienciaService;

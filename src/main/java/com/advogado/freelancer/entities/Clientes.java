@@ -1,12 +1,12 @@
 package com.advogado.freelancer.entities;
+import com.advogado.freelancer.frameWork.EstadosDoBrasilEnum;
+import com.advogado.freelancer.frameWork.StatusAtivoInativoEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @Entity(name = "clientes")
@@ -39,7 +39,8 @@ public class Clientes {
     private String cidade;
 
     @Column(nullable = false, length = 2)
-    private String uf;
+    @Enumerated(EnumType.STRING)
+    private EstadosDoBrasilEnum uf;
 
     @Column(nullable = false)
     private int cep;
@@ -56,8 +57,8 @@ public class Clientes {
     @Column
     private String complemento;
 
-    @Column(nullable = false)
-    private boolean status;
+    @Enumerated(EnumType.STRING)
+    private StatusAtivoInativoEnum status;
 
     @Column
     private LocalDateTime deletedAt;

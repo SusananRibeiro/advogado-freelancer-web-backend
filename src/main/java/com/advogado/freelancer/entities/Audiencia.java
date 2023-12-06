@@ -1,15 +1,10 @@
 package com.advogado.freelancer.entities;
-
-
 import com.advogado.freelancer.frameWork.utils.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Data
 @Entity(name = "audiencia")

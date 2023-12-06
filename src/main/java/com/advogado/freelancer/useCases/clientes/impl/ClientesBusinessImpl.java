@@ -1,5 +1,6 @@
 package com.advogado.freelancer.useCases.clientes.impl;
 import com.advogado.freelancer.entities.Clientes;
+import com.advogado.freelancer.frameWork.EstadosDoBrasilEnum;
 import com.advogado.freelancer.frameWork.annotions.Business;
 import com.advogado.freelancer.frameWork.utils.SenacException;
 import com.advogado.freelancer.frameWork.utils.StringUtil;
@@ -10,7 +11,7 @@ import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClienteRelatorioRepository;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClientesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -73,13 +74,13 @@ public class ClientesBusinessImpl implements ClientesBusiness {
             cliente.setNumero(clientesRequestDom.getNumero());
             cliente.setBairro(clientesRequestDom.getBairro());
             cliente.setCidade(clientesRequestDom.getCidade());
-            cliente.setUf(clientesRequestDom.getUf().toUpperCase());
+            cliente.setUf(clientesRequestDom.getUf());
             cliente.setCep(clientesRequestDom.getCep());
             cliente.setPais(clientesRequestDom.getPais());
             cliente.setTelefone(clientesRequestDom.getTelefone());
             cliente.setEmail(clientesRequestDom.getEmail());
             cliente.setComplemento(clientesRequestDom.getComplemento());
-            cliente.setStatus(clientesRequestDom.isStatus());
+            cliente.setStatus(clientesRequestDom.getStatus());
 
             // Salvar as alterações no banco de dados
             Clientes clienteAtualizado = clientesRepository.save(cliente);
@@ -113,44 +114,58 @@ public class ClientesBusinessImpl implements ClientesBusiness {
 
     private void validacaoManutencaoCliente(ClientesRequestDom cliente) throws SenacException {
         if(StringUtil.validarString(cliente.getNomeCompleto())){
-            throw new SenacException("Não foi informado o nome e sobrenome do cliente!");
+            throw new SenacException("O nome do cliente é obrigatório.");
         }
         if(StringUtil.validarString(cliente.getCpfOuCnpj()) || !cliente.getCpfOuCnpj().matches("\\d{11}")){
-            throw new SenacException("Não foi informado o CPF/CNPJ do cliente!");
+            throw new SenacException("O CPF/CNPJ do cliente é obrigatório.");
         }
 
         if (cliente.getDataNascimento() == null) {
-            throw new SenacException("Não foi informada a data de nascimento do cliente!");
+            throw new SenacException("A data de nascimento é obrigatório.");
         }
         if(StringUtil.validarString(cliente.getRua())){
-            throw new SenacException("Não foi informado a rua do endereço do cliente!");
+            throw new SenacException("A rua é obrigatório.");
         }
         if(StringUtil.validarString(cliente.getBairro())){
-            throw new SenacException("Não foi informado o bairro do endereço do cliente!");
+            throw new SenacException("O bairro é obrigatório.");
         }
         if(StringUtil.validarString(cliente.getBairro())){
-            throw new SenacException("Não foi informado a cidade do endereço do cliente!");
+            throw new SenacException("A cidade é obrigatório.");
         }
-        if(StringUtil.validarString(cliente.getUf())){
-            throw new SenacException("Não foi informado a UF do endereço do cliente!");
+        if(StringUtil.validarString(String.valueOf(cliente.getUf()))){
+            throw new SenacException("A sigla do estado é obrigatório.");
+        }
+        if(verificarUF(String.valueOf(cliente.getUf())) == false){
+            throw new SenacException("Estado inválido!");
         }
         if(StringUtil.validarString(String.valueOf(cliente.getCep()))){
-            throw new SenacException("Não foi informado o CEP do endereço do cliente!");
+            throw new SenacException("O CEP é obrigatório.");
         }
         if(StringUtil.validarString(cliente.getPais())){
-            throw new SenacException("Não foi informado o país do endereço do cliente!");
+            throw new SenacException("O país é obrigatório.");
         }
         if(StringUtil.validarString(cliente.getTelefone()) || !cliente.getTelefone().matches("\\d{11}")){
-            throw new SenacException("Não foi informado o telefone do cliente!");
+            throw new SenacException("O telefone é obrigatório.");
         }
-        if(StringUtil.validarString(String.valueOf(cliente.isStatus()))){
-          throw new SenacException("Não foi informado o status do cliente!");
+        if(StringUtil.validarString(String.valueOf(cliente.getStatus()))){
+          throw new SenacException("O status é obrigatório.");
         }
     }
 
     // Cria uma validação
     public boolean validarCPF(String cpfOuCnpj) {
         return clienteRelatorioRepository.existsByCpfOuCnpj(cpfOuCnpj);
+    }
+
+    // Validar estados
+    public boolean verificarUF(String uf) {
+        EstadosDoBrasilEnum estadosDoBrasilEnum = EstadosDoBrasilEnum.valueOf(uf);
+        try {
+            estadosDoBrasilEnum.valueOf(uf);
+            return true; // O estado é válido
+        } catch (IllegalArgumentException e) {
+            return false; // O estado é inválido
+        }
     }
 
 }

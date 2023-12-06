@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:5432/produtos_fuqy
+    password: ${DB_PASS}
+    username: ${DB_USER}
+    driverClassName: org.postgresql.Driver
+
+
