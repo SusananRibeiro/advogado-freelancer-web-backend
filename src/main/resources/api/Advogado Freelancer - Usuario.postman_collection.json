@@ -45,7 +45,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/usuarios/carregue/3",
+					"raw": "http://localhost:8080/usuarios/carregue/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -54,7 +54,7 @@
 					"path": [
 						"usuarios",
 						"carregue",
-						"3"
+						"1"
 					]
 				}
 			},
@@ -67,7 +67,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nomeCompleto\": \"Nome Teste 3\",\r\n    \"email\": \"teste97@mail.com\",\r\n    \"senha\": \"8@98CD40\",\r\n    \"confirmaSenha\": \"8@98CD40\"\r\n}",
+					"raw": "{\r\n    \"nomeCompleto\": \"Nome Teste 3\",\r\n    \"email\": \"teste@mail.com\",\r\n    \"senha\": \"12345678\",\r\n    \"confirmaSenha\": \"12345678\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -84,57 +84,6 @@
 					"path": [
 						"usuarios",
 						"crie"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Usuario PUT",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"nomeCompleto\": \"Nome Teste 2\",\r\n    \"email\": \"teste85@mail.com\",\r\n    \"senha\": \"@9834587\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/usuarios/atualize/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"usuarios",
-						"atualize",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Usuario DELETE",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/usuarios/delete/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"usuarios",
-						"delete",
-						"1"
 					]
 				}
 			},
