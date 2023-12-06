@@ -4,6 +4,7 @@ import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 
 public class UsuarioMapper {
+
     // Request - Método para converter UsuarioRequestDom para Usuario
     public static Usuario usuarioRequestDomToUsuario(UsuarioRequestDom usuarioRequestDom){
         Usuario out = new Usuario();

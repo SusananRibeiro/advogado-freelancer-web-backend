@@ -1,0 +1,53 @@
+name: CI
+
+permissions:
+  contents: read
+  checks: write
+  id-token: write
+
+on:
+  push:
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  compilacao-e-testes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configuração JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: '15'
+          postgresql db: advogado-freelancer
+          postgresql user: postgres
+          postgresql password: postgres
+      - name: Compilação
+        run: mvn -B package --file pom.xml  -DskipTests
+
+      - name: Testes
+        run: mvn test
+
+      - name: Resultados
+        uses: mikepenz/action-junit-report@v4
+        if: success() || failure()
+        with:
+          report_path: 'target/surefire-reports/TEST-*.xml'
+
+  deploy:
+    needs: ["compilacao-e-testes"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy
+        if: github.ref == 'refs/heads/master'
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$deploy_url"
+          
