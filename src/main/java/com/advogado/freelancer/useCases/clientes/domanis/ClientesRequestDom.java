@@ -1,5 +1,6 @@
 package com.advogado.freelancer.useCases.clientes.domanis;
 import com.advogado.freelancer.frameWork.EstadosDoBrasilEnum;
+import com.advogado.freelancer.frameWork.StatusAtivoInativoEnum;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -33,7 +34,7 @@ public class ClientesRequestDom {
 
     private String complemento;
 
-    private boolean status;
+    private StatusAtivoInativoEnum status;
 
 
     // Não precisa gerar Gets, Sets e toString, pois o "@Data" vai fazer isso
