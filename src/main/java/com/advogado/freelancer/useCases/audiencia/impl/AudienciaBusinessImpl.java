@@ -5,6 +5,7 @@ import com.advogado.freelancer.entities.Clientes;
 import com.advogado.freelancer.entities.Processo;
 import com.advogado.freelancer.frameWork.annotions.Business;
 import com.advogado.freelancer.frameWork.utils.SenacException;
+import com.advogado.freelancer.frameWork.utils.Status;
 import com.advogado.freelancer.frameWork.utils.StringUtil;
 import com.advogado.freelancer.useCases.audiencia.AudienciaBusiness;
 import com.advogado.freelancer.useCases.audiencia.domains.AudienciaRequestDom;
@@ -14,7 +15,6 @@ import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaClie
 import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaProcessoRepository;
 import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,7 +44,7 @@ public class AudienciaBusinessImpl implements AudienciaBusiness {
             throw new SenacException("Processo não encontrado!");
         }
 
-        Audiencia audienciaRetorno = AudienciaMapper.audienciaResquestDomToAudiencia(audienciaRequestDom , cliente.get());
+        Audiencia audienciaRetorno = audienciaRepository.save(AudienciaMapper.audienciaResquestDomToAudiencia(audienciaRequestDom,cliente.get(),processo.get()));
 
 
         return AudienciaMapper.audienciaToAudienciaResponseDom(audienciaRetorno);
@@ -132,6 +132,10 @@ public class AudienciaBusinessImpl implements AudienciaBusiness {
 
         if (audiencia.getProcessoId() == null || audiencia.getProcessoId()<=0){
             throw new SenacException("Processo não informado");
+        }
+
+        if (audiencia.getStatus() == null){
+            throw new SenacException("Status não informado");
         }
     }
 
