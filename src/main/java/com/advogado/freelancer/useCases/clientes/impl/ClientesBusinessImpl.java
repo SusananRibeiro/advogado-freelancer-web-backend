@@ -14,6 +14,7 @@ import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClienteUsuario
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClientesRespository;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 import com.advogado.freelancer.useCases.usuarios.impl.mappers.UsuarioMapper;
+import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,9 @@ public class ClientesBusinessImpl implements ClientesBusiness {
     private ClienteRelatorioRepository clienteRelatorioRepository;
     @Autowired
     private ClienteUsuarioRepository clienteUsuarioRepository;
+
+    @Autowired
+    private UsuarioClienteRepository usuarioClienteRepository;
     @Override
     public List<ClientesResponseDom> carregarClientes() {
         List<Clientes> clientesList = clientesRepository.findAll();
@@ -117,6 +121,19 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         Clientes cliente = optionalCliente.get();
 
         ClientesResponseDom out = ClientesMapper.clientesToClientesResponseDom(cliente);
+        return out;
+    }
+
+    @Override
+    public List<ClientesResponseDom> carregarClientesByUsuarioId(Long id) throws SenacException {
+
+        List<Clientes> optionalCliente = usuarioClienteRepository.carregarClientesByUsuarioId(id);
+
+        List<ClientesResponseDom> out = optionalCliente
+                .stream()
+                .map(ClientesMapper:: clientesToClientesResponseDom)
+                .collect(Collectors.toList());
+
         return out;
     }
 
