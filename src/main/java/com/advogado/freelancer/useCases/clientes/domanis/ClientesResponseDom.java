@@ -5,6 +5,7 @@ import com.advogado.freelancer.frameWork.utils.StatusAtivoInativo;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class ClientesResponseDom {
@@ -39,6 +40,11 @@ public class ClientesResponseDom {
     private StatusAtivoInativo status;
 
     private Long usuarioId;
+    private String nomeCompletoUsuario;
+    private String emailUsuario;
+    private String senhaUsuario;
+    private String confirmaSenhaUsuario;
+
 
     // Não precisa gerar Gets, Sets e toString, pois o "@Data" vai fazer isso
 }

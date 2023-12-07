@@ -12,6 +12,8 @@ import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClienteRelatorioRepository;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClienteUsuarioRepository;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClientesRespository;
+import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
+import com.advogado.freelancer.useCases.usuarios.impl.mappers.UsuarioMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
@@ -42,6 +44,7 @@ public class ClientesBusinessImpl implements ClientesBusiness {
     public ClientesResponseDom criarCliente(ClientesRequestDom clientesRequestDom) throws Exception {
         this.validacaoManutencaoCliente(clientesRequestDom);
         Optional<Usuario> usuario = clienteUsuarioRepository.findById(clientesRequestDom.getUsuarioId());
+
         if(!usuario.isPresent()){
             throw new SenacException("Usuario não encontrado");
         }
@@ -111,8 +114,8 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         if(!optionalCliente.isPresent()) {
             throw new SenacException("Cliente não encontrado");
         }
-
         Clientes cliente = optionalCliente.get();
+
         ClientesResponseDom out = ClientesMapper.clientesToClientesResponseDom(cliente);
         return out;
     }

@@ -25,14 +25,12 @@ public class AudienciaMapper {
 
     public static Audiencia audienciaResquestDomToAudiencia(AudienciaRequestDom audienciaRequestDom, Clientes cliente, Processo processo){
         Audiencia out = new Audiencia();
-
         out.setStatus(audienciaRequestDom.getStatus());
         out.setHora(audienciaRequestDom.getHora());
         out.setData(audienciaRequestDom.getData());
         out.setCliente(cliente);
         out.setLocal(audienciaRequestDom.getLocal());
         out.setProcesso(processo);
-
         return out;
     }
 }

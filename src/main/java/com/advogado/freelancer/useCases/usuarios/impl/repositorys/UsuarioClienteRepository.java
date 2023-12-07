@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface UsuarioClienteRepository extends JpaRepository<Usuario, Long> {
-//  public List<Clientes> findByIdAndClientesUsuarioId(Long usuarioId);
     @Query("select c from clientes c where c.usuarioId.id = :id")
     public List<Clientes> carregarClientesByUsuarioId(@Param("id") Long id);
 }
