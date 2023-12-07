@@ -41,6 +41,13 @@ public class ClientesController {
     public ResponseEntity<ClientesResponseDom> carregarClienteById(@PathVariable Long id) throws SenacException {
         return ResponseEntity.ok(clientesServiceImpl.carregarClienteById(id));
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/carregue/usuarioId/{usuarioId}")
+    @LogRest
+    public ResponseEntity<List<ClientesResponseDom>> carregarClientesByUsuarioId(@PathVariable Long usuarioId) throws SenacException {
+        return ResponseEntity.ok(clientesServiceImpl.carregarClientesByUsuarioId(usuarioId));
+    }
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/crie")
     @LogRest

@@ -31,7 +31,7 @@ public class LoginController {
         Usuario usuario = usuarioServiceImpl.fazerLogin(email, senha);
 
         if (usuario != null) {
-            return ResponseEntity.ok(Map.of("message", "Login bem-sucedido!"));
+            return ResponseEntity.ok(usuario.getId());
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Usuário ou senha inválida."));
         }
