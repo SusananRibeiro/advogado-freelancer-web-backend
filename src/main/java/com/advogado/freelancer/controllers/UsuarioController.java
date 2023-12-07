@@ -26,6 +26,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioRelatorioRepository usuarioRelatorioRepository;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/carregue")
     @LogRest
     public ResponseEntity<List<UsuarioResponseDom>> carregarPedidosItens(){
