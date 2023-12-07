@@ -9,4 +9,5 @@ public class UsuarioRequestDom {
     private String email;
     private String senha;
     private String confirmaSenha;
+
 }

@@ -1,6 +1,5 @@
 package com.advogado.freelancer.useCases.audiencia.domains;
 
-import com.advogado.freelancer.entities.Clientes;
 import com.advogado.freelancer.frameWork.utils.Status;
 import lombok.Data;
 

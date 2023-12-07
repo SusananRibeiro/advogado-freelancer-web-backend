@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "a7d5c6ce-7cb6-4855-b138-ac4736aa35c8",
+		"_postman_id": "44d38a7a-2e8b-41b0-a5b8-b1e53c5e15c2",
 		"name": "Advogado Freelancer - Audiencia",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29047213"
+		"_exporter_id": "27532932",
+		"_collection_link": "https://warped-firefly-748319.postman.co/workspace/Team-Workspace~62cf569d-daee-4ae8-87d9-2d1be527e9f2/collection/27532932-44d38a7a-2e8b-41b0-a5b8-b1e53c5e15c2?action=share&source=collection_link&creator=27532932"
 	},
 	"item": [
 		{
@@ -12,15 +13,37 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/audiencia/carregue",
+					"raw": "http://localhost:8080/audiencias/carregue",
+
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"audiencia",
+						"audiencias",
 						"carregue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Audiencia GET por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/audiencias/carregue/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"audiencias",
+						"carregue",
+						"1"
 					]
 				}
 			},
@@ -33,7 +56,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"clienteId\":1,\r\n    \"processoId\":5,\r\n    \"data\":\"2020-12-12\",\r\n    \"hora\": \"15:15\",\r\n    \"local\":\"teste\",\r\n    \"status\": \"ARQUIVADO\"\r\n}",
+					"raw": "{\r\n    \"cliente\": 1,\r\n    \"processo\": 1,\r\n    \"data\": \"2023-02-23\",\r\n    \"hora\": \"15:15\",\r\n    \"local\": \"Local\",\r\n    \"status\": \"EM_ANDAMENTO\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -41,14 +64,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/audiencia/crie",
+					"raw": "http://localhost:8080/audiencias/crie",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"audiencia",
+						"audiencias",
 						"crie"
 					]
 				}
@@ -56,13 +79,13 @@
 			"response": []
 		},
 		{
-			"name": "Audiencia PUT",
+			"name": "Audienciase PUT",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"clienteId\":1,\r\n    \"processoId\":5,\r\n    \"data\":\"2020-12-12\",\r\n    \"hora\": \"15:15\",\r\n    \"local\":\"testando\",\r\n    \"status\": \"ARQUIVADO\"\r\n}",
+					"raw": "{\r\n    \"cliente\": 1,\r\n    \"processo\": 1,\r\n    \"data\": \"2023-02-23\",\r\n    \"hora\": \"15:15\",\r\n    \"local\": \"Local\",\r\n    \"status\": \"EM_ANDAMENTO\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,35 +93,37 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/audiencia/atualize/1",
+					"raw": "http://localhost:8080//audiencias/atualize/6",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"audiencia",
+						"",
+						"audiencias",
 						"atualize",
-						"1"
+						"6"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Audiencia DELETE",
+			"name": "Audiencias DELETE",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/audiencia/delete/2",
+					"raw": "http://localhost:8080//audiencias/delete/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"audiencia",
+						"",
+						"audiencias",
 						"delete",
 						"2"
 					]

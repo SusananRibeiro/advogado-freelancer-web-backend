@@ -1,4 +1,5 @@
 package com.advogado.freelancer.useCases.usuarios.impl;
+import com.advogado.freelancer.entities.Clientes;
 import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.frameWork.annotions.Business;
 import com.advogado.freelancer.frameWork.utils.SenacException;
@@ -7,11 +8,14 @@ import com.advogado.freelancer.useCases.usuarios.UsuarioBusiness;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioRequestDom;
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 import com.advogado.freelancer.useCases.usuarios.impl.mappers.UsuarioMapper;
+import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioClienteRepository;
 import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioRelatorioRepository;
 import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Business
 public class UsuarioBusinessImpl implements UsuarioBusiness {
@@ -19,7 +23,31 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
     private UsuarioRepository usuarioRepository;
     @Autowired
     private UsuarioRelatorioRepository usuarioRelatorioRepository;
+    @Autowired
+    private UsuarioClienteRepository usuarioClienteRepository;
 
+    @Override
+    public UsuarioResponseDom carregarUsuarioById(Long id) throws SenacException {
+        Usuario usuario = usuarioRepository.findById(id).get();
+
+        List<Clientes> clientes = usuarioClienteRepository.carregarClientesByUsuarioId(id);
+
+        UsuarioResponseDom out = UsuarioMapper.usuariosToUsuariosResponseDom(usuario, clientes);
+
+        return out;
+    }
+
+
+    @Override
+    public List<UsuarioResponseDom> carregarUsuarios() {
+        List<Usuario> usuarioList = usuarioRepository.findAll();
+
+        List<UsuarioResponseDom> out = usuarioList.stream()
+                .map(UsuarioMapper::usuariosToUsuariosResponseDom)
+                .collect(Collectors.toList());
+
+        return out;
+    }
 
     @Override
     public UsuarioResponseDom criarUsuario(UsuarioRequestDom usuarioRequestDom) throws Exception {
@@ -33,6 +61,8 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
         UsuarioResponseDom out = UsuarioMapper.usuariosToUsuariosResponseDom(resultUsuario);
         return out;
     }
+
+
 
     // TESTE Login
     @Override
