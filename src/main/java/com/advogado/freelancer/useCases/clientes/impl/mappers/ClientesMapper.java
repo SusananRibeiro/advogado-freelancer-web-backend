@@ -46,6 +46,10 @@ public class ClientesMapper {
         out.setComplemento(clientes.getComplemento());
         out.setStatus(clientes.getStatus());
         out.setUsuarioId(clientes.getUsuarioId().getId());
+        out.setNomeCompletoUsuario(clientes.getUsuarioId().getNomeCompleto());
+        out.setEmailUsuario(clientes.getUsuarioId().getEmail());
+        out.setSenhaUsuario(clientes.getUsuarioId().getSenha());
+        out.setConfirmaSenhaUsuario(clientes.getUsuarioId().getConfirmaSenha());
         return out;
     }
 

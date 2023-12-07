@@ -30,8 +30,6 @@ public class UsuarioBusinessImpl implements UsuarioBusiness {
     public UsuarioResponseDom carregarUsuarioById(Long id) throws SenacException {
         Usuario usuario = usuarioRepository.findById(id).get();
 
-//        List<Clientes> clientes = usuarioClienteRepository.findByIdAndClientesUsuarioId(id);
-
         List<Clientes> clientes = usuarioClienteRepository.carregarClientesByUsuarioId(id);
 
         UsuarioResponseDom out = UsuarioMapper.usuariosToUsuariosResponseDom(usuario, clientes);
