@@ -22,4 +22,10 @@ public class ProcessoResponseDom {
     private StatusProcesso status;
     private long clienteId;
     private ClientesResponseDom cliente;
+
+    private Long usuarioId;
+    private String nomeCompletoUsuario;
+    private String emailUsuario;
+    private String senhaUsuario;
+    private String confirmaSenhaUsuario;
 }

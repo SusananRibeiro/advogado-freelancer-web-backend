@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "6674de27-a778-4ff2-8657-f1624c79da04",
+		"_postman_id": "21667749-aad2-4edd-99bf-4fa5ccc3c8a2",
 		"name": "Advogado Freelancer - Processo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29131667"
+		"_exporter_id": "27532932",
+		"_collection_link": "https://warped-firefly-748319.postman.co/workspace/Team-Workspace~62cf569d-daee-4ae8-87d9-2d1be527e9f2/collection/27532932-21667749-aad2-4edd-99bf-4fa5ccc3c8a2?action=share&source=collection_link&creator=27532932"
 	},
 	"item": [
 		{
@@ -27,13 +28,35 @@
 			"response": []
 		},
 		{
+			"name": "Processo por Usuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/processos/carregar/usuarioId/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"processos",
+						"carregar",
+						"usuarioId",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Processo",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"numeroProcesso\": \"202020\",\r\n    \"dataContrato\": \"2023-10-05\",\r\n    \"acaoProcesso\": \"acao teste\",\r\n    \"tribunal\": \"tribunal teste\",\r\n    \"vara\": \"vara teste\",\r\n    \"comarca\": \"comarca teste\",\r\n    \"foro\": \"foro teste\",\r\n    \"linkDocumento\": \"C:/temp\",\r\n    \"dataAbertura\": \"2023-10-05\",\r\n    \"dataFechamento\": \"2024-12-04\",\r\n    \"status\": 0,\r\n    \"clienteId\": 1\r\n}",
+					"raw": "{\r\n    \"numeroProcesso\": \"202020\",\r\n    \"dataContrato\": \"2023-10-05\",\r\n    \"acaoProcesso\": \"acao teste\",\r\n    \"tribunal\": \"tribunal teste\",\r\n    \"vara\": \"vara teste\",\r\n    \"comarca\": \"comarca teste\",\r\n    \"foro\": \"foro teste\",\r\n    \"linkDocumento\": \"C:/temp\",\r\n    \"dataAbertura\": \"2023-10-05\",\r\n    \"dataFechamento\": \"2024-12-04\",\r\n    \"status\": 0,\r\n    \"clienteId\": 1,\r\n    \"usuarioId\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -61,7 +84,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/processos/carregar/3",
+					"raw": "http://localhost:8080/processos/carregar/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -70,7 +93,7 @@
 					"path": [
 						"processos",
 						"carregar",
-						"3"
+						"2"
 					]
 				}
 			},
@@ -83,7 +106,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"numeroProcesso\": \"12345\",\r\n    \"dataContrato\": \"2023-10-05\",\r\n    \"acaoProcesso\": \"acao teste\",\r\n    \"tribunal\": \"tribunal teste\",\r\n    \"vara\": \"vara teste\",\r\n    \"comarca\": \"comarca teste\",\r\n    \"foro\": \"foro alterado\",\r\n    \"linkDocumento\": \"C:/temp\",\r\n    \"dataAbertura\": \"2023-10-05\",\r\n    \"dataFechamento\": \"2024-12-04\",\r\n    \"status\": 1,\r\n    \"clienteId\": 1\r\n}",
+					"raw": "{\r\n    \"numeroProcesso\": \"12345\",\r\n    \"dataContrato\": \"2023-10-05\",\r\n    \"acaoProcesso\": \"acao teste\",\r\n    \"tribunal\": \"tribunal teste\",\r\n    \"vara\": \"vara teste\",\r\n    \"comarca\": \"comarca teste\",\r\n    \"foro\": \"foro alterado\",\r\n    \"linkDocumento\": \"C:/temp\",\r\n    \"dataAbertura\": \"2023-10-05\",\r\n    \"dataFechamento\": \"2024-12-04\",\r\n    \"status\": 1,\r\n    \"clienteId\": 1,\r\n    \"usuarioId\": 2\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -128,7 +151,7 @@
 			"response": []
 		},
 		{
-			"name": "Processo Page",
+			"name": "Processo Pag",
 			"request": {
 				"method": "GET",
 				"header": [],

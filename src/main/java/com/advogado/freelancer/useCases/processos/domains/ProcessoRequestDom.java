@@ -19,4 +19,5 @@ public class ProcessoRequestDom {
     private LocalDate dataFechamento;
     private StatusProcesso status;
     private Long clienteId;
+    private Long usuarioId;
 }

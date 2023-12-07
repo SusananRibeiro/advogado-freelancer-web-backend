@@ -14,6 +14,7 @@
 				"header": [],
 				"url": {
 					"raw": "http://localhost:8080/audiencias/carregue",
+
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -125,6 +126,27 @@
 						"audiencias",
 						"delete",
 						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Audiencia GET por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/audiencia/carregue/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"audiencia",
+						"carregue",
+						"3"
 					]
 				}
 			},
