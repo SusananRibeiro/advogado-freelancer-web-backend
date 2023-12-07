@@ -4,6 +4,7 @@ import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.frameWork.utils.EstadosDoBrasil;
 import com.advogado.freelancer.frameWork.annotions.Business;
 import com.advogado.freelancer.frameWork.utils.SenacException;
+import com.advogado.freelancer.frameWork.utils.StatusAtivoInativo;
 import com.advogado.freelancer.frameWork.utils.StringUtil;
 import com.advogado.freelancer.useCases.clientes.ClientesBusiness;
 import com.advogado.freelancer.useCases.clientes.domanis.ClientesRequestDom;
@@ -12,10 +13,7 @@ import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClienteRelatorioRepository;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClienteUsuarioRepository;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClientesRespository;
-import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
-import com.advogado.freelancer.useCases.usuarios.impl.mappers.UsuarioMapper;
 import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioClienteRepository;
-import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioProcessoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
@@ -53,8 +51,8 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         if(!usuario.isPresent()){
             throw new SenacException("Usuario não encontrado");
         }
-        if (validarCPF(clientesRequestDom.getCpfOuCnpj())) {
-            throw new SenacException("CPF/CNPJ já cadastrado para outro cliente!");
+        if (validarCPF(clientesRequestDom.getCpf())) {
+            throw new SenacException("CPF já cadastrado para outro cliente!");
         }
         Clientes clienteRetorno = clientesRepository.save(ClientesMapper
                 .clientesRequestDomToClientes(clientesRequestDom, usuario.get()));
@@ -71,15 +69,15 @@ public class ClientesBusinessImpl implements ClientesBusiness {
             validacaoManutencaoCliente(clientesRequestDom);
 
             // Verificar se o CPF do cliente existente corresponde ao CPF informado na requisição
-            if (!cliente.getCpfOuCnpj().equals(clientesRequestDom.getCpfOuCnpj())) {
+            if (!cliente.getCpf().equals(clientesRequestDom.getCpf())) {
                 // CPF informado é diferente do CPF armazenado para este cliente, então valida o CPF existente
-                if (validarCPF(clientesRequestDom.getCpfOuCnpj())) {
-                    throw new SenacException("CPF/CNPJ já cadastrado para outro cliente!");
+                if (validarCPF(clientesRequestDom.getCpf())) {
+                    throw new SenacException("CPF já cadastrado para outro cliente!");
                 }
             }
             // Impedir a alteração do CPF
-            if (!cliente.getCpfOuCnpj().equals(clientesRequestDom.getCpfOuCnpj())) {
-                throw new SenacException("Não é permitido alterar o CPF/CNPJ do cliente!");
+            if (!cliente.getCpf().equals(clientesRequestDom.getCpf())) {
+                throw new SenacException("Não é permitido alterar o CPF do cliente!");
             }
             // Atualizar os dados do cliente (exceto CPF)
             cliente.setNomeCompleto(clientesRequestDom.getNomeCompleto());
@@ -142,8 +140,8 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         if(StringUtil.validarString(cliente.getNomeCompleto())){
             throw new SenacException("O nome do cliente é obrigatório.");
         }
-        if(StringUtil.validarString(cliente.getCpfOuCnpj()) || !cliente.getCpfOuCnpj().matches("\\d{11}")){
-            throw new SenacException("O CPF/CNPJ do cliente é obrigatório.");
+        if(StringUtil.validarString(cliente.getCpf()) || !cliente.getCpf().matches("\\d{11}")){
+            throw new SenacException("O CPF do cliente é obrigatório.");
         }
 
         if (cliente.getDataNascimento() == null) {
@@ -176,18 +174,32 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         if(StringUtil.validarString(String.valueOf(cliente.getStatus()))){
           throw new SenacException("O status é obrigatório.");
         }
+        if(verificarStatus(String.valueOf(cliente.getStatus())) == false){
+            throw new SenacException("Status inválido!");
+        }
     }
 
-    // Cria uma validação
-    public boolean validarCPF(String cpfOuCnpj) {
-        return clienteRelatorioRepository.existsByCpfOuCnpj(cpfOuCnpj);
+    // Validação do CPF
+    public boolean validarCPF(String cpf) {
+        return clienteRelatorioRepository.existsByCpf(cpf);
     }
 
-    // Validar estados
+    // Validação estados
     public boolean verificarUF(String uf) {
         EstadosDoBrasil estadosDoBrasil = EstadosDoBrasil.valueOf(uf);
         try {
             estadosDoBrasil.valueOf(uf);
+            return true; // O estado é válido
+        } catch (IllegalArgumentException e) {
+            return false; // O estado é inválido
+        }
+    }
+
+    // Validação do Status
+    public boolean verificarStatus(String status) {
+        StatusAtivoInativo statusAtivoInativo = StatusAtivoInativo.valueOf(status);
+        try {
+            statusAtivoInativo.valueOf(status);
             return true; // O estado é válido
         } catch (IllegalArgumentException e) {
             return false; // O estado é inválido

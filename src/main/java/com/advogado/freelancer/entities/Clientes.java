@@ -7,7 +7,6 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Entity(name = "clientes")
@@ -21,8 +20,8 @@ public class Clientes {
     @Column(name = "nome_completo", nullable = false)
     private String nomeCompleto;
 
-    @Column(name = "cpf_ou_cnpj", nullable = false, unique = true)
-    private String cpfOuCnpj;
+    @Column(nullable = false, unique = true)
+    private String cpf;
 
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;

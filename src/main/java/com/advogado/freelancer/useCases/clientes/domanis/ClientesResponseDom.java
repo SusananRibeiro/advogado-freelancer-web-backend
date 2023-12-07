@@ -13,7 +13,7 @@ public class ClientesResponseDom {
 
     private String nomeCompleto;
 
-    private String cpfOuCnpj;
+    private String cpf;
 
     private LocalDate dataNascimento;
 
@@ -42,8 +42,6 @@ public class ClientesResponseDom {
     private Long usuarioId;
     private String nomeCompletoUsuario;
     private String emailUsuario;
-//    private String senhaUsuario;
-//    private String confirmaSenhaUsuario;
 
 
     // Não precisa gerar Gets, Sets e toString, pois o "@Data" vai fazer isso

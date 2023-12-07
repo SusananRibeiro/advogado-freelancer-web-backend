@@ -26,6 +26,4 @@ public class ProcessoResponseDom {
     private Long usuarioId;
     private String nomeCompletoUsuario;
     private String emailUsuario;
-    private String senhaUsuario;
-    private String confirmaSenhaUsuario;
 }

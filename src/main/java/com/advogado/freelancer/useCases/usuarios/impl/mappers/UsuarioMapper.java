@@ -48,7 +48,7 @@ public class UsuarioMapper {
         UsuarioClienteResponseDom out = new UsuarioClienteResponseDom();
         out.setId(clientes.getId());
         out.setNomeCompleto(clientes.getNomeCompleto());
-        out.setCpfOuCnpj(clientes.getCpfOuCnpj());
+        out.setCpf(clientes.getCpf());
         out.setDataNascimento(clientes.getDataNascimento());
         out.setRua(clientes.getRua());
         out.setNumero(clientes.getNumero());
