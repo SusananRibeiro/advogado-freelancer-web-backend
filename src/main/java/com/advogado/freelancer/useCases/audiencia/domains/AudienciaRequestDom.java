@@ -22,4 +22,5 @@ public class AudienciaRequestDom {
     private String local;
 
     private Status status;
+    private Long usuarioId;
 }

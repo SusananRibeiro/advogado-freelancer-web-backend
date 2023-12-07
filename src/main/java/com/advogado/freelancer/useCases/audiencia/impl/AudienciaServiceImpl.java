@@ -39,4 +39,9 @@ public class AudienciaServiceImpl implements AudienciaService {
     public AudienciaResponseDom carregarAudienciaById(Long id) throws SenacException {
         return audienciaBusiness.carregarAudienciaById(id);
     }
+
+    @Override
+    public List<AudienciaResponseDom> carregarAudienciaByUsuarioId(Long id) throws SenacException {
+        return audienciaBusiness.carregarAudienciaByUsuarioId(id);
+    }
 }

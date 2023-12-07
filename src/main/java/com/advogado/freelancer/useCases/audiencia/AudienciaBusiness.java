@@ -3,6 +3,7 @@ package com.advogado.freelancer.useCases.audiencia;
 import com.advogado.freelancer.frameWork.utils.SenacException;
 import com.advogado.freelancer.useCases.audiencia.domains.AudienciaRequestDom;
 import com.advogado.freelancer.useCases.audiencia.domains.AudienciaResponseDom;
+import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 
 import java.util.List;
 
@@ -16,5 +17,7 @@ public interface AudienciaBusiness {
     void deletarAuciencia(Long id);
 
     public AudienciaResponseDom carregarAudienciaById(Long id) throws SenacException;
+
+    List<AudienciaResponseDom> carregarAudienciaByUsuarioId(Long id) throws SenacException;
 
 }
