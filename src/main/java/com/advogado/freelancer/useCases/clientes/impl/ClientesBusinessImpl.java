@@ -15,6 +15,7 @@ import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClientesRespos
 import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
 import com.advogado.freelancer.useCases.usuarios.impl.mappers.UsuarioMapper;
 import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioClienteRepository;
+import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioProcessoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;

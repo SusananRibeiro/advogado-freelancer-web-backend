@@ -38,4 +38,9 @@ public class ProcessoServiceImpl implements ProcessoService {
     public ProcessoResponseDom carregarProcessoById(Long id) throws SenacException {
         return processoBusinessImpl.carregarProcessoById(id);
     }
+
+    @Override
+    public List<ProcessoResponseDom> carregarProcessoByUsuarioId(Long id) throws SenacException {
+        return processoBusinessImpl.carregarProcessoByUsuarioId(id);
+    }
 }

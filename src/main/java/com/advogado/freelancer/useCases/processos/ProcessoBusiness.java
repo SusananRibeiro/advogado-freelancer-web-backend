@@ -1,6 +1,7 @@
 package com.advogado.freelancer.useCases.processos;
 
 import com.advogado.freelancer.frameWork.utils.SenacException;
+import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 import com.advogado.freelancer.useCases.processos.domains.ProcessoRequestDom;
 import com.advogado.freelancer.useCases.processos.domains.ProcessoResponseDom;
 
@@ -16,4 +17,6 @@ public interface ProcessoBusiness {
     void deletarProcesso(Long id) throws Exception;
 
     ProcessoResponseDom carregarProcessoById(Long id) throws SenacException;
+
+    List<ProcessoResponseDom> carregarProcessoByUsuarioId(Long id) throws SenacException;
 }
