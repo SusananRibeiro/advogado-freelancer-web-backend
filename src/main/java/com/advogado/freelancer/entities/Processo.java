@@ -57,4 +57,8 @@ public class Processo {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Clientes cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuarioId;
 }
