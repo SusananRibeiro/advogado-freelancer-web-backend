@@ -1,5 +1,6 @@
 package com.advogado.freelancer.useCases.usuarios.domanis;
 import lombok.Data;
+import java.util.List;
 
 @Data
 public class UsuarioResponseDom {
@@ -8,4 +9,5 @@ public class UsuarioResponseDom {
     private String email;
     private String senha;
     private String confirmaSenha;
+    private List<UsuarioClienteResponseDom> clientesList;
 }

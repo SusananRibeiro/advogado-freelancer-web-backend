@@ -1,6 +1,7 @@
 package com.advogado.freelancer.useCases.clientes.impl;
 import com.advogado.freelancer.entities.Clientes;
-import com.advogado.freelancer.frameWork.EstadosDoBrasilEnum;
+import com.advogado.freelancer.entities.Usuario;
+import com.advogado.freelancer.frameWork.utils.EstadosDoBrasil;
 import com.advogado.freelancer.frameWork.annotions.Business;
 import com.advogado.freelancer.frameWork.utils.SenacException;
 import com.advogado.freelancer.frameWork.utils.StringUtil;
@@ -9,9 +10,11 @@ import com.advogado.freelancer.useCases.clientes.domanis.ClientesRequestDom;
 import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClienteRelatorioRepository;
+import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClienteUsuarioRepository;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClientesRespository;
+import com.advogado.freelancer.useCases.usuarios.domanis.UsuarioResponseDom;
+import com.advogado.freelancer.useCases.usuarios.impl.mappers.UsuarioMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,9 +23,10 @@ import java.util.stream.Collectors;
 public class ClientesBusinessImpl implements ClientesBusiness {
     @Autowired
     private ClientesRespository clientesRepository;
-
     @Autowired
     private ClienteRelatorioRepository clienteRelatorioRepository;
+    @Autowired
+    private ClienteUsuarioRepository clienteUsuarioRepository;
     @Override
     public List<ClientesResponseDom> carregarClientes() {
         List<Clientes> clientesList = clientesRepository.findAll();
@@ -39,13 +43,17 @@ public class ClientesBusinessImpl implements ClientesBusiness {
     @Override
     public ClientesResponseDom criarCliente(ClientesRequestDom clientesRequestDom) throws Exception {
         this.validacaoManutencaoCliente(clientesRequestDom);
-        Clientes clientes = ClientesMapper.clientesRequestDomToClientes(clientesRequestDom);
-        if(validarCPF(clientes.getCpfOuCnpj()) == true) {
-            throw new SenacException("CPF/CNPJ já cadastrado!");
+        Optional<Usuario> usuario = clienteUsuarioRepository.findById(clientesRequestDom.getUsuarioId());
+
+        if(!usuario.isPresent()){
+            throw new SenacException("Usuario não encontrado");
         }
-        Clientes resultClientes = clientesRepository.save(clientes);
-        ClientesResponseDom out = ClientesMapper.clientesToClientesResponseDom(resultClientes);
-        return out;
+        if (validarCPF(clientesRequestDom.getCpfOuCnpj())) {
+            throw new SenacException("CPF/CNPJ já cadastrado para outro cliente!");
+        }
+        Clientes clienteRetorno = clientesRepository.save(ClientesMapper
+                .clientesRequestDomToClientes(clientesRequestDom, usuario.get()));
+        return ClientesMapper.clientesToClientesResponseDom(clienteRetorno);
     }
 
     @Override
@@ -106,8 +114,8 @@ public class ClientesBusinessImpl implements ClientesBusiness {
         if(!optionalCliente.isPresent()) {
             throw new SenacException("Cliente não encontrado");
         }
-
         Clientes cliente = optionalCliente.get();
+
         ClientesResponseDom out = ClientesMapper.clientesToClientesResponseDom(cliente);
         return out;
     }
@@ -159,9 +167,9 @@ public class ClientesBusinessImpl implements ClientesBusiness {
 
     // Validar estados
     public boolean verificarUF(String uf) {
-        EstadosDoBrasilEnum estadosDoBrasilEnum = EstadosDoBrasilEnum.valueOf(uf);
+        EstadosDoBrasil estadosDoBrasil = EstadosDoBrasil.valueOf(uf);
         try {
-            estadosDoBrasilEnum.valueOf(uf);
+            estadosDoBrasil.valueOf(uf);
             return true; // O estado é válido
         } catch (IllegalArgumentException e) {
             return false; // O estado é inválido

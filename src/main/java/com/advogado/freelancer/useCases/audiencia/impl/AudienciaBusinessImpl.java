@@ -15,9 +15,6 @@ import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaClie
 import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaProcessoRepository;
 import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.security.sasl.SaslException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
