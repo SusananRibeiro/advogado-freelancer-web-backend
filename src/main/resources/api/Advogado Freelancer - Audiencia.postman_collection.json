@@ -55,7 +55,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"cliente\": 1,\r\n    \"processo\": 1,\r\n    \"data\": \"2023-02-23\",\r\n    \"hora\": \"15:15\",\r\n    \"local\": \"Local\",\r\n    \"status\": \"EM_ANDAMENTO\"\r\n}",
+					"raw": "{\r\n    \"cliente\": 1,\r\n    \"processo\": 1,\r\n    \"data\": \"2023-02-23\",\r\n    \"hora\": \"15:15\",\r\n    \"local\": \"Local\",\r\n    \"status\": \"EM_ANDAMENTO\",\r\n    \"usuarioId\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -125,6 +125,28 @@
 						"audiencias",
 						"delete",
 						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Audiencia GET por Usuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/audiencias/carregue/usuarioId/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"audiencias",
+						"carregue",
+						"usuarioId",
+						"1"
 					]
 				}
 			},

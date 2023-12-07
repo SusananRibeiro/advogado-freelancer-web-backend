@@ -6,6 +6,7 @@ import com.advogado.freelancer.useCases.audiencia.AudienciaService;
 import com.advogado.freelancer.useCases.audiencia.domains.AudienciaRequestDom;
 import com.advogado.freelancer.useCases.audiencia.domains.AudienciaResponseDom;
 import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaRepository;
+import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,5 +75,12 @@ public class AudienciaController {
         audienciaService.deletarAudiencia(id);
 
         return ResponseEntity.ok(null);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/carregue/usuarioId/{usuarioId}")
+    @LogRest
+    public ResponseEntity<List<AudienciaResponseDom>> carregarClientesByUsuarioId(@PathVariable Long usuarioId) throws SenacException {
+        return ResponseEntity.ok(audienciaService.carregarAudienciaByUsuarioId(usuarioId));
     }
 }

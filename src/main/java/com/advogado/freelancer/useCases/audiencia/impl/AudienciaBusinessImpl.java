@@ -3,6 +3,7 @@ package com.advogado.freelancer.useCases.audiencia.impl;
 import com.advogado.freelancer.entities.Audiencia;
 import com.advogado.freelancer.entities.Clientes;
 import com.advogado.freelancer.entities.Processo;
+import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.frameWork.annotions.Business;
 import com.advogado.freelancer.frameWork.utils.SenacException;
 import com.advogado.freelancer.frameWork.utils.Status;
@@ -14,6 +15,10 @@ import com.advogado.freelancer.useCases.audiencia.impl.mappers.AudienciaMapper;
 import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaClientesRespository;
 import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaProcessoRepository;
 import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaRepository;
+import com.advogado.freelancer.useCases.audiencia.impl.repositorys.AudienciaUsuarioRepository;
+import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
+import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
+import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioAudienciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +35,10 @@ public class AudienciaBusinessImpl implements AudienciaBusiness {
 
     @Autowired
     private AudienciaProcessoRepository audienciaProcessoRepository;
+    @Autowired
+    private AudienciaUsuarioRepository audienciaUsuarioRepository;
+    @Autowired
+    private UsuarioAudienciaRepository usuarioAudienciaRepository;
     @Override
     public AudienciaResponseDom criarAudiencia(AudienciaRequestDom audienciaRequestDom) throws Exception {
         this.validacaoManutencaoAudiencia(audienciaRequestDom);
@@ -43,8 +52,14 @@ public class AudienciaBusinessImpl implements AudienciaBusiness {
         if (!processo.isPresent()){
             throw new SenacException("Processo não encontrado!");
         }
+        
+        Optional<Usuario> usuario = audienciaUsuarioRepository.findById(audienciaRequestDom.getUsuarioId());
+        if(!usuario.isPresent()){
+            throw new SenacException("Usuario não encontrado");
+        }
 
-        Audiencia audienciaRetorno = audienciaRepository.save(AudienciaMapper.audienciaResquestDomToAudiencia(audienciaRequestDom,cliente.get(),processo.get()));
+        Audiencia audienciaRetorno = audienciaRepository.save(AudienciaMapper
+                .audienciaResquestDomToAudiencia(audienciaRequestDom, cliente.get(), processo.get(), usuario.get()));
 
 
         return AudienciaMapper.audienciaToAudienciaResponseDom(audienciaRetorno);
@@ -54,7 +69,8 @@ public class AudienciaBusinessImpl implements AudienciaBusiness {
     public List<AudienciaResponseDom> carregarAudiencia() {
         List<Audiencia> audienciaList = audienciaRepository.findAll();
 
-        List<AudienciaResponseDom> out = audienciaList.stream().map(AudienciaMapper::audienciaToAudienciaResponseDom).collect(Collectors.toList());
+        List<AudienciaResponseDom> out = audienciaList.stream().map(AudienciaMapper::audienciaToAudienciaResponseDom)
+                .collect(Collectors.toList());
         return out;
     }
 
@@ -100,6 +116,7 @@ public class AudienciaBusinessImpl implements AudienciaBusiness {
     public AudienciaResponseDom carregarAudienciaById(Long id) throws SenacException {
         Optional<Audiencia> optionalAudiencia = audienciaRepository.findById(id);
 
+
         if(!optionalAudiencia.isPresent()){
             throw new SenacException("Audiencia não informada!");
         }
@@ -107,6 +124,18 @@ public class AudienciaBusinessImpl implements AudienciaBusiness {
         Audiencia audiencia = optionalAudiencia.get();
 
         AudienciaResponseDom out = AudienciaMapper.audienciaToAudienciaResponseDom(audiencia);
+
+        return out;
+    }
+
+    @Override
+    public List<AudienciaResponseDom> carregarAudienciaByUsuarioId(Long id) throws SenacException {
+        List<Audiencia> optionalAudiencia = usuarioAudienciaRepository.carregarAudienciaByUsuarioId(id);
+
+        List<AudienciaResponseDom> out = optionalAudiencia
+                .stream()
+                .map(AudienciaMapper:: audienciaToAudienciaResponseDom)
+                .collect(Collectors.toList());
 
         return out;
     }
@@ -127,7 +156,7 @@ public class AudienciaBusinessImpl implements AudienciaBusiness {
         }
 
         if (audiencia.getClienteId() == null || audiencia.getClienteId()<=0){
-            throw new SenacException("Cliente mão informado!");
+            throw new SenacException("Cliente não informado!");
         }
 
         if (audiencia.getProcessoId() == null || audiencia.getProcessoId()<=0){
