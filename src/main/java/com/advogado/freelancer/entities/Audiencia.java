@@ -39,5 +39,9 @@ public class Audiencia {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuarioId;
+
 
 }
