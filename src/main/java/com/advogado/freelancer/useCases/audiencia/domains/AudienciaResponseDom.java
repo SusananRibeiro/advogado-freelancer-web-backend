@@ -13,8 +13,6 @@ public class AudienciaResponseDom {
 
     private Long processoId;
 
-    private LocalDateTime deleted_at;
-
     private String data;
 
     private String hora;
