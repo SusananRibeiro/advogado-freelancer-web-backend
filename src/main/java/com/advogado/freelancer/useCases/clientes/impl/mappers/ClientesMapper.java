@@ -11,7 +11,7 @@ public class ClientesMapper {
         Clientes out = new Clientes();
 
         out.setNomeCompleto(clientesRequestDom.getNomeCompleto());
-        out.setCpfOuCnpj(clientesRequestDom.getCpfOuCnpj());
+        out.setCpf(clientesRequestDom.getCpf());
         out.setDataNascimento(clientesRequestDom.getDataNascimento()); // Convertendo a data de nascimento
         out.setRua(clientesRequestDom.getRua());
         out.setNumero(clientesRequestDom.getNumero());
@@ -32,7 +32,7 @@ public class ClientesMapper {
         ClientesResponseDom out = new ClientesResponseDom();
         out.setId(clientes.getId());
         out.setNomeCompleto(clientes.getNomeCompleto());
-        out.setCpfOuCnpj(clientes.getCpfOuCnpj());
+        out.setCpf(clientes.getCpf());
         out.setDataNascimento(clientes.getDataNascimento());
         out.setRua(clientes.getRua());
         out.setNumero(clientes.getNumero());
@@ -48,8 +48,6 @@ public class ClientesMapper {
         out.setUsuarioId(clientes.getUsuarioId().getId());
         out.setNomeCompletoUsuario(clientes.getUsuarioId().getNomeCompleto());
         out.setEmailUsuario(clientes.getUsuarioId().getEmail());
-//        out.setSenhaUsuario(clientes.getUsuarioId().getSenha());
-//        out.setConfirmaSenhaUsuario(clientes.getUsuarioId().getConfirmaSenha());
         return out;
     }
 

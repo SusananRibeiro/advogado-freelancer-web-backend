@@ -33,7 +33,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/clientes/carregue/5",
+					"raw": "http://localhost:8080/clientes/carregue/9",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -42,7 +42,7 @@
 					"path": [
 						"clientes",
 						"carregue",
-						"5"
+						"9"
 					]
 				}
 			},
@@ -55,7 +55,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nomeCompleto\": \"Nome Teste 2\",\r\n    \"cpfOuCnpj\": \"12345678033\",\r\n    \"dataNascimento\": \"2002-12-23\",\r\n    \"rua\": \"Rua teste\",\r\n    \"numero\": \"sem numero\",\r\n    \"bairro\": \"Bairro teste\",\r\n    \"cidade\": \"Cidade testen j\",\r\n    \"uf\": \"SC\",\r\n    \"cep\": 88800200,\r\n    \"pais\": \"Pais\",\r\n    \"telefone\": \"48999889988\",\r\n    \"email\": \"teste@mail.com\",\r\n    \"complemento\": \"Sem complemento\",\r\n    \"status\": \"ATIVO\",\r\n    \"usuarioId\": 2\r\n\r\n}",
+					"raw": "{\r\n    \"nomeCompleto\": \"Nome Teste 3\",\r\n    \"cpf\": \"12345678213\",\r\n    \"dataNascimento\": \"2002-12-23\",\r\n    \"rua\": \"Rua teste\",\r\n    \"numero\": \"sem numero\",\r\n    \"bairro\": \"Bairro teste\",\r\n    \"cidade\": \"Cidade testen j\",\r\n    \"uf\": \"SC\",\r\n    \"cep\": 88800200,\r\n    \"pais\": \"Pais\",\r\n    \"telefone\": \"48999889988\",\r\n    \"email\": \"teste@mail.com\",\r\n    \"complemento\": \"Sem complemento\",\r\n    \"status\": \"ATIVO\",\r\n    \"usuarioId\": 1\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -84,7 +84,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nomeCompleto\": \"Pedro Pereira Atualização \",\r\n    \"cpfOuCnpj\": \"23456789012\",\r\n    \"dataNascimento\": \"2002-12-23\",\r\n    \"rua\": \"Rua teste\",\r\n    \"numero\": \"sem numero\",\r\n    \"bairro\": \"Bairro teste Atualização\",\r\n    \"cidade\": \"Cidade teste\",\r\n    \"uf\": \"sp\",\r\n    \"cep\": 88800200,\r\n    \"pais\": \"Pais\",\r\n    \"telefone\": \"48999889988\",\r\n    \"email\": \"teste@mail.com\",\r\n    \"complemento\": \"Sem complemento\",\r\n    \"status\": true\r\n}",
+					"raw": "{\r\n    \"nomeCompleto\": \"Nome Teste Atual\",\r\n    \"cpf\": \"12345678013\",\r\n    \"dataNascimento\": \"2002-12-23\",\r\n    \"rua\": \"Rua teste\",\r\n    \"numero\": \"sem numero\",\r\n    \"bairro\": \"Bairro teste\",\r\n    \"cidade\": \"Cidade testen j\",\r\n    \"uf\": \"SC\",\r\n    \"cep\": 88800200,\r\n    \"pais\": \"Pais\",\r\n    \"telefone\": \"48999889988\",\r\n    \"email\": \"teste@mail.com\",\r\n    \"complemento\": \"Sem complemento\",\r\n    \"status\": \"ATIVO\",\r\n    \"usuarioId\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -92,7 +92,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/clientes/atualize/6",
+					"raw": "http://localhost:8080/clientes/atualize/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -101,7 +101,7 @@
 					"path": [
 						"clientes",
 						"atualize",
-						"6"
+						"2"
 					]
 				}
 			},
@@ -113,7 +113,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/clientes/delete/25",
+					"raw": "http://localhost:8080/clientes/delete/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -122,7 +122,7 @@
 					"path": [
 						"clientes",
 						"delete",
-						"25"
+						"2"
 					]
 				}
 			},

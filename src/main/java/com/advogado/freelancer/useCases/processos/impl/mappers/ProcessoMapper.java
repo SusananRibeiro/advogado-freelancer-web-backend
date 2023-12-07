@@ -49,8 +49,6 @@ public class ProcessoMapper {
         out.setUsuarioId(processo.getUsuarioId().getId());
         out.setNomeCompletoUsuario(processo.getUsuarioId().getNomeCompleto());
         out.setEmailUsuario(processo.getUsuarioId().getEmail());
-//        out.setSenhaUsuario(processo.getUsuarioId().getSenha());
-//        out.setConfirmaSenhaUsuario(processo.getUsuarioId().getConfirmaSenha());
 
         if (processo.getCliente() != null)
         {

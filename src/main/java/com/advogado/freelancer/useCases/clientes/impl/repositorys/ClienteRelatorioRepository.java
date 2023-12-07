@@ -7,6 +7,6 @@ import java.util.List;
 
 @Repository
 public interface ClienteRelatorioRepository extends JpaRepository<Clientes, Long> {
-    public boolean existsByCpfOuCnpj(String cpfOuCnpj);
+    public boolean existsByCpf(String cpf);
 
 }

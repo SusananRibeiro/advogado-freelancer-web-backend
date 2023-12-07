@@ -1,5 +1,4 @@
 package com.advogado.freelancer.useCases.clientes.domanis;
-import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.frameWork.utils.EstadosDoBrasil;
 import com.advogado.freelancer.frameWork.utils.StatusAtivoInativo;
 import lombok.Data;
@@ -11,7 +10,7 @@ public class ClientesRequestDom {
 
     private String nomeCompleto;
 
-    private String cpfOuCnpj;
+    private String cpf;
 
     private LocalDate dataNascimento;
 
