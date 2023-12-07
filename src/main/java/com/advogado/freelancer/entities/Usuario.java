@@ -36,6 +36,9 @@ public class Usuario {
     @OneToMany(mappedBy = "usuarioId") // precisa ter o mesmo nome que está na entidade Cliente
     private List<Processo> processos;
 
+    @OneToMany(mappedBy = "usuarioId") // precisa ter o mesmo nome que está na entidade Cliente
+    private List<Audiencia> audiencia;
+
     // Não precisa gerar Gets e Sets, pois o "@Data" vai fazer isso
 
 }

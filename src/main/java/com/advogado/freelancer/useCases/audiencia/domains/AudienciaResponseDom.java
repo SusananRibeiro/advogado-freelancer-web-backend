@@ -22,4 +22,8 @@ public class AudienciaResponseDom {
     private String local;
 
     private Status status;
+
+    private Long usuarioId;
+    private String nomeCompletoUsuario;
+    private String emailUsuario;
 }

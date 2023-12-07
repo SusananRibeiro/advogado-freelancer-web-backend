@@ -18,5 +18,6 @@ public interface AudienciaService {
     void deletarAudiencia(Long id);
 
     AudienciaResponseDom carregarAudienciaById(Long id) throws SenacException;
+    List<AudienciaResponseDom> carregarAudienciaByUsuarioId(Long id) throws SenacException;
 
 }
