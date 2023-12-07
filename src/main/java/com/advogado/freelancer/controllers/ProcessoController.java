@@ -5,6 +5,7 @@ import com.advogado.freelancer.frameWork.InfoRow;
 import com.advogado.freelancer.frameWork.annotions.LogRest;
 import com.advogado.freelancer.frameWork.utils.ResponseUtil;
 import com.advogado.freelancer.frameWork.utils.SenacException;
+import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 import com.advogado.freelancer.useCases.processos.domains.ProcessoRequestDom;
 import com.advogado.freelancer.useCases.processos.domains.ProcessoResponseDom;
 import com.advogado.freelancer.useCases.processos.impl.ProcessoServiceImpl;
@@ -112,7 +113,12 @@ public class ProcessoController {
                     .body(ResponseUtil.responseMapper("Erro não mapeado: " + e.getMessage()));
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/carregar/usuarioId/{usuarioId}")
+    @LogRest
+    public ResponseEntity<List<ProcessoResponseDom>> carregarProcessoByUsuarioId(@PathVariable Long usuarioId) throws SenacException {
+        return ResponseEntity.ok(processoServiceImpl.carregarProcessoByUsuarioId(usuarioId));
+    }
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/carregar/page")
     public ResponseEntity<DataReponse> carregarProcessoPorPagina(@RequestParam(defaultValue = "0") int page,

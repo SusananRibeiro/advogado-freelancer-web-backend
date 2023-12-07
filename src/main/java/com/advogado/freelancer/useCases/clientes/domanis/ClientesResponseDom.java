@@ -1,10 +1,12 @@
 package com.advogado.freelancer.useCases.clientes.domanis;
-import com.advogado.freelancer.frameWork.EstadosDoBrasilEnum;
-import com.advogado.freelancer.frameWork.StatusAtivoInativoEnum;
+import com.advogado.freelancer.entities.Usuario;
+import com.advogado.freelancer.frameWork.utils.EstadosDoBrasil;
+import com.advogado.freelancer.frameWork.utils.StatusAtivoInativo;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
+
 @Data
 public class ClientesResponseDom {
     private Long id;
@@ -23,7 +25,7 @@ public class ClientesResponseDom {
 
     private String cidade;
 
-    private EstadosDoBrasilEnum uf;
+    private EstadosDoBrasil uf;
 
     private int cep;
 
@@ -35,7 +37,14 @@ public class ClientesResponseDom {
 
     private String complemento;
 
-    private StatusAtivoInativoEnum status;
+    private StatusAtivoInativo status;
+
+    private Long usuarioId;
+    private String nomeCompletoUsuario;
+    private String emailUsuario;
+//    private String senhaUsuario;
+//    private String confirmaSenhaUsuario;
+
 
     // Não precisa gerar Gets, Sets e toString, pois o "@Data" vai fazer isso
 }

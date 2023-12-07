@@ -1,12 +1,13 @@
 package com.advogado.freelancer.useCases.clientes.impl.mappers;
 import com.advogado.freelancer.entities.Clientes;
+import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.useCases.clientes.domanis.ClientesRequestDom;
 import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
 
 public class ClientesMapper {
 
     // Request - Método para converter ClientesRequestDom para Clientes
-    public static Clientes clientesRequestDomToClientes(ClientesRequestDom clientesRequestDom){
+    public static Clientes clientesRequestDomToClientes(ClientesRequestDom clientesRequestDom, Usuario usuario){
         Clientes out = new Clientes();
 
         out.setNomeCompleto(clientesRequestDom.getNomeCompleto());
@@ -23,6 +24,7 @@ public class ClientesMapper {
         out.setEmail(clientesRequestDom.getEmail());
         out.setComplemento(clientesRequestDom.getComplemento());
         out.setStatus(clientesRequestDom.getStatus());
+        out.setUsuarioId(usuario);
         return out;
     }
     // Response
@@ -43,6 +45,11 @@ public class ClientesMapper {
         out.setEmail(clientes.getEmail());
         out.setComplemento(clientes.getComplemento());
         out.setStatus(clientes.getStatus());
+        out.setUsuarioId(clientes.getUsuarioId().getId());
+        out.setNomeCompletoUsuario(clientes.getUsuarioId().getNomeCompleto());
+        out.setEmailUsuario(clientes.getUsuarioId().getEmail());
+//        out.setSenhaUsuario(clientes.getUsuarioId().getSenha());
+//        out.setConfirmaSenhaUsuario(clientes.getUsuarioId().getConfirmaSenha());
         return out;
     }
 

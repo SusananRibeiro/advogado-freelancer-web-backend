@@ -3,6 +3,7 @@ package com.advogado.freelancer.useCases.audiencia.impl.mappers;
 import com.advogado.freelancer.entities.Audiencia;
 import com.advogado.freelancer.entities.Clientes;
 import com.advogado.freelancer.entities.Processo;
+import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.useCases.audiencia.domains.AudienciaRequestDom;
 import com.advogado.freelancer.useCases.audiencia.domains.AudienciaResponseDom;
 
@@ -19,20 +20,23 @@ public class AudienciaMapper {
         out.setClienteId(audiencia.getCliente().getId());
         out.setLocal(audiencia.getLocal());
         out.setProcessoId(audiencia.getProcesso().getId());
+        out.setUsuarioId(audiencia.getUsuarioId().getId());
+        out.setNomeCompletoUsuario(audiencia.getUsuarioId().getNomeCompleto());
+        out.setEmailUsuario(audiencia.getUsuarioId().getEmail());
 
         return out;
     }
 
-    public static Audiencia audienciaResquestDomToAudiencia(AudienciaRequestDom audienciaRequestDom, Clientes cliente, Processo processo){
+    public static Audiencia audienciaResquestDomToAudiencia(AudienciaRequestDom audienciaRequestDom, Clientes cliente,
+                                                            Processo processo, Usuario usuario){
         Audiencia out = new Audiencia();
-
         out.setStatus(audienciaRequestDom.getStatus());
         out.setHora(audienciaRequestDom.getHora());
         out.setData(audienciaRequestDom.getData());
         out.setCliente(cliente);
         out.setLocal(audienciaRequestDom.getLocal());
         out.setProcesso(processo);
-
+        out.setUsuarioId(usuario);
         return out;
     }
 }

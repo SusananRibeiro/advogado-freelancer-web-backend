@@ -3,15 +3,20 @@ package com.advogado.freelancer.useCases.processos.impl;
 
 import com.advogado.freelancer.entities.Clientes;
 import com.advogado.freelancer.entities.Processo;
+import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.frameWork.annotions.Business;
 import com.advogado.freelancer.frameWork.utils.SenacException;
 import com.advogado.freelancer.frameWork.utils.StringUtil;
+import com.advogado.freelancer.useCases.clientes.domanis.ClientesResponseDom;
+import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.clientes.impl.repositorys.ClientesRespository;
 import com.advogado.freelancer.useCases.processos.ProcessoBusiness;
 import com.advogado.freelancer.useCases.processos.domains.ProcessoRequestDom;
 import com.advogado.freelancer.useCases.processos.domains.ProcessoResponseDom;
 import com.advogado.freelancer.useCases.processos.impl.mappers.ProcessoMapper;
 import com.advogado.freelancer.useCases.processos.impl.repositorys.ProcessoRepository;
+import com.advogado.freelancer.useCases.processos.impl.repositorys.ProcessoUsuarioRepository;
+import com.advogado.freelancer.useCases.usuarios.impl.repositorys.UsuarioProcessoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +29,10 @@ public class ProcessoBusinessImpl implements ProcessoBusiness {
 
     @Autowired
     private ClientesRespository clienteRepository;
+    @Autowired
+    private ProcessoUsuarioRepository processoUsuarioRepository;
+    @Autowired
+    private UsuarioProcessoRepository usuarioProcessoRepository;
 
     @Override
     public List<ProcessoResponseDom> carregarProcessos() {
@@ -41,10 +50,11 @@ public class ProcessoBusinessImpl implements ProcessoBusiness {
     public ProcessoResponseDom criarProcesso(ProcessoRequestDom processoRequestDom) throws Exception {
 
         this.validacaoManutencaoProcesso(processoRequestDom);
+        Optional<Usuario> usuario = processoUsuarioRepository.findById(processoRequestDom.getUsuarioId());
 
         var clienteRef = clienteRepository.findById(processoRequestDom.getClienteId()).get();
 
-        Processo processo = ProcessoMapper.processoRequestDomToProcesso(processoRequestDom, clienteRef);
+        Processo processo = ProcessoMapper.processoRequestDomToProcesso(processoRequestDom, clienteRef, usuario.get());
 
         Processo resultProcesso = processoRepository.save(processo);
         ProcessoResponseDom out = ProcessoMapper.processosToProcessoResponseDom(resultProcesso);
@@ -103,6 +113,18 @@ public class ProcessoBusinessImpl implements ProcessoBusiness {
 
         Processo processo = optional.get();
         ProcessoResponseDom out = ProcessoMapper.processosToProcessoResponseDom(processo);
+        return out;
+    }
+
+    @Override
+    public List<ProcessoResponseDom> carregarProcessoByUsuarioId(Long id) throws SenacException {
+        List<Processo> optionalProcesso = usuarioProcessoRepository.carregarProcessoByUsuarioId(id);
+
+        List<ProcessoResponseDom> out = optionalProcesso
+                .stream()
+                .map(ProcessoMapper:: processosToProcessoResponseDom)
+                .collect(Collectors.toList());
+
         return out;
     }
 

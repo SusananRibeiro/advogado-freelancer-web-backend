@@ -34,4 +34,9 @@ public class ClientesServiceImpl implements ClientesService {
     public ClientesResponseDom carregarClienteById(Long id) throws SenacException {
         return clientesBusinessImpl.carregarClienteById(id);
     }
+
+    @Override
+    public List<ClientesResponseDom> carregarClientesByUsuarioId(Long id) throws SenacException{
+        return clientesBusinessImpl.carregarClientesByUsuarioId(id);
+    }
 }

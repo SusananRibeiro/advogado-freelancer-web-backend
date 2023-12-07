@@ -1,12 +1,13 @@
 package com.advogado.freelancer.useCases.processos.impl.mappers;
 import com.advogado.freelancer.entities.Clientes;
 import com.advogado.freelancer.entities.Processo;
+import com.advogado.freelancer.entities.Usuario;
 import com.advogado.freelancer.useCases.clientes.impl.mappers.ClientesMapper;
 import com.advogado.freelancer.useCases.processos.domains.ProcessoRequestDom;
 import com.advogado.freelancer.useCases.processos.domains.ProcessoResponseDom;
 
 public class ProcessoMapper {
-    public static Processo processoRequestDomToProcesso(ProcessoRequestDom processoRequestDom, Clientes cliente){
+    public static Processo processoRequestDomToProcesso(ProcessoRequestDom processoRequestDom, Clientes cliente, Usuario usuario){
 
         Processo out = new Processo();
 
@@ -23,6 +24,7 @@ public class ProcessoMapper {
         out.setStatus(processoRequestDom.getStatus());
 
         out.setCliente(cliente);
+        out.setUsuarioId(usuario);
 
         return out;
     }
@@ -43,6 +45,12 @@ public class ProcessoMapper {
         out.setDataAbertura(processo.getDataAbertura());
         out.setDataFechamento(processo.getDataFechamento());
         out.setStatus(processo.getStatus());
+
+        out.setUsuarioId(processo.getUsuarioId().getId());
+        out.setNomeCompletoUsuario(processo.getUsuarioId().getNomeCompleto());
+        out.setEmailUsuario(processo.getUsuarioId().getEmail());
+//        out.setSenhaUsuario(processo.getUsuarioId().getSenha());
+//        out.setConfirmaSenhaUsuario(processo.getUsuarioId().getConfirmaSenha());
 
         if (processo.getCliente() != null)
         {
